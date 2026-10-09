@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Virtual env
+.venv/
+
+# Secrets
+.env
+
+# Downloaded media, transcripts, vector DB
+data/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

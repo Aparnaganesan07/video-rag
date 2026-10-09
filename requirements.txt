@@ -1,0 +1,17 @@
+# --- Phase 1: core pipeline ---
+# Download (the [default] extra pulls yt-dlp-ejs, needed to solve YouTube's JS challenges)
+yt-dlp[default]>=2025.11.12
+
+# Speech-to-text. PyAV 18+ breaks faster-whisper's decode_audio, so pin it.
+faster-whisper>=1.1.0
+av<18
+
+# Embeddings + vector store
+sentence-transformers>=3.0.0
+chromadb>=1.0.0
+
+# Config / secrets
+python-dotenv>=1.0.0
+
+# Tests
+pytest>=8.0.0

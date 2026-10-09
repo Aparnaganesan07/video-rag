@@ -21,15 +21,18 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))  # so `import ap
 
 from app import config, pipeline  # noqa: E402
 from app.generation.answer import CITATION_GROUP_RE, TIMESTAMP_RE  # noqa: E402
-from app.retrieval import embedder, vector_store  # noqa: E402
+from app.retrieval import embedder, reranker, vector_store  # noqa: E402
 from app.utils import format_timestamp  # noqa: E402
 
 st.set_page_config(page_title="Video RAG – Jump to the Moment", page_icon="🎬", layout="wide")
 
 
-@st.cache_resource(show_spinner="Loading the embedding model (first run only)...")
+@st.cache_resource(show_spinner="Loading the search models (first run only)...")
 def warm_up() -> bool:
-    embedder.embed_query("warm up")  # loads bge once; later questions are fast
+    # Load the embedder and reranker once per server, so the first question isn't slow.
+    embedder.embed_query("warm up")
+    if config.USE_RERANKER:
+        reranker.rerank("warm up", [{"text": "warm up"}], top_k=1)
     return True
 
 
@@ -54,15 +57,20 @@ def answer_to_html(answer: str, citations: list[dict]) -> str:
     return CITATION_GROUP_RE.sub(replace_group, html.escape(answer))
 
 
+def _shorten(text: str, n: int) -> str:
+    return text if len(text) <= n else text[:n] + "..."
+
+
 def sources_to_html(sources: list[dict]) -> str:
     items = []
-    for i, s in enumerate(sources, 1):
-        snippet = s["text"] if len(s["text"]) <= 240 else s["text"][:240] + "..."
+    for s in sources:
+        slide = s.get("slide_text") or ""
+        slide_html = f'<div class="snippet slide">🖼 On screen: {html.escape(_shorten(slide, 160))}</div>' if slide else ""
         items.append(
             f'<li><a href="#" class="ts" data-v="{s["video_id"]}" data-t="{int(s["start"])}">'
             f'{format_timestamp(s["start"])}–{format_timestamp(s["end"])}</a> '
             f'<span class="muted">· {html.escape(s["title"])} · score {s["score"]:.2f}</span>'
-            f'<div class="snippet">{html.escape(snippet)}</div></li>'
+            f'<div class="snippet">{html.escape(_shorten(s["text"], 240))}</div>{slide_html}</li>'
         )
     return f'<ol class="sources">{"".join(items)}</ol>'
 
@@ -97,6 +105,7 @@ def render_player(video_id: str, start: int, answer_html: str = "", sources_html
   .sources {{ margin:0; padding-left:20px; }}
   .sources li {{ margin-bottom:10px; }}
   .snippet {{ font-size:14px; line-height:1.4; color:{colors["muted"]}; margin-top:2px; }}
+  .snippet.slide {{ font-style:italic; }}
 </style>
 <div class="grid">
   <div><div class="video"><div id="player"></div></div></div>
@@ -149,31 +158,48 @@ videos = [v for v in vector_store.list_videos() if not v["video_id"].startswith(
 with st.sidebar:
     st.header("🎬 Videos")
     with st.form("index_form", clear_on_submit=True):
-        url = st.text_input("Add a YouTube video", placeholder="https://www.youtube.com/watch?v=...")
-        submitted = st.form_submit_button("Index video")
+        url = st.text_input("Add a YouTube video or playlist", placeholder="https://www.youtube.com/watch?v=...")
+        use_ocr = st.checkbox(
+            "Read on-screen text (slide OCR)",
+            value=config.ENABLE_SLIDES,
+            help="Finds slide changes and reads their text. Slower: roughly 40s per minute of video on CPU.",
+        )
+        submitted = st.form_submit_button("Index")
     if submitted and url.strip():
-        with st.status("Indexing... (a 20-min video takes ~5 min on CPU)", expanded=True) as status:
-            try:
-                st.write("Downloading audio → transcribing → chunking → embedding")
-                meta = pipeline.index_video(url.strip())
-                status.update(label=f"Indexed: {meta['title']} ({meta['num_chunks']} chunks)", state="complete")
-                st.session_state.pop("result", None)
-                st.rerun()
-            except Exception as e:
-                status.update(label="Indexing failed", state="error")
-                st.error(str(e))
+        with st.status("Indexing... (see the terminal for progress)", expanded=True) as status:
+            st.write("Download → transcribe → " + ("slide OCR → " if use_ocr else "") + "chunk → embed")
+            results = pipeline.index_source(url.strip(), slides=use_ocr)
+            ok = [r for r in results if "error" not in r]
+            for r in results:
+                if "error" in r:
+                    st.error(f"{r['source']}: {r['error']}")
+                else:
+                    st.write(f"✅ {r['title']}: {r['num_chunks']} chunks, {r['num_slides']} slides")
+            status.update(label=f"Indexed {len(ok)}/{len(results)} video(s)", state="complete" if ok else "error")
+        if ok:
+            st.session_state.pop("result", None)
+            st.rerun()
 
     if not videos:
         st.info("No videos yet. Paste a YouTube URL above to get started.")
         st.stop()
 
-    titles = {v["video_id"]: f'{v["title"]} ({v["chunks"]} chunks)' for v in videos}
+    titles = {
+        v["video_id"]: f'{"🖼 " if v["has_slides"] else ""}{v["title"]} ({v["chunks"]} chunks)' for v in videos
+    }
     scope = st.selectbox(
         "Search in",
         options=[None] + list(titles),
         format_func=lambda vid: "All videos" if vid is None else titles[vid],
     )
-    st.caption(f"Model: `{config.LLM_MODEL}` via Groq · Embeddings: `{config.EMBEDDING_MODEL}`")
+
+    with st.expander("Retrieval settings"):
+        use_hybrid = st.toggle("Hybrid search (vector + BM25)", value=config.USE_HYBRID)
+        use_rerank = st.toggle("Rerank with cross-encoder", value=config.USE_RERANKER, help="More accurate, ~5s slower on CPU")
+    st.caption(
+        f"LLM: `{config.LLM_MODEL}` via Groq · Embeddings: `{config.EMBEDDING_MODEL}` · "
+        f"Reranker: `{config.RERANKER_MODEL}` · 🖼 = has slide text"
+    )
 
 
 # ---------- Main area: question → answer → player ----------
@@ -193,7 +219,9 @@ if asked and question.strip():
         st.stop()
     with st.spinner("Searching the transcript and writing an answer..."):
         try:
-            st.session_state["result"] = pipeline.ask(question.strip(), video_id=scope)
+            st.session_state["result"] = pipeline.ask(
+                question.strip(), video_id=scope, hybrid=use_hybrid, rerank=use_rerank
+            )
         except Exception as e:
             st.error(f"Something went wrong: {e}")
             st.stop()

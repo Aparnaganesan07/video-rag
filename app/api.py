@@ -14,13 +14,16 @@ app = FastAPI(title="Video RAG – Jump to the Moment")
 
 
 class IndexRequest(BaseModel):
-    source: str  # YouTube URL or a local file path on the server
+    source: str  # YouTube video/playlist URL or a local file path on the server
+    slides: bool = config.ENABLE_SLIDES  # run slide OCR (slower)
 
 
 class AskRequest(BaseModel):
     question: str
     video_id: str | None = None  # None = search all indexed videos
     k: int = config.ANSWER_TOP_K
+    hybrid: bool = config.USE_HYBRID
+    rerank: bool = config.USE_RERANKER
 
 
 @app.get("/health")
@@ -37,9 +40,10 @@ def videos():
 # so slow model work doesn't block other requests.
 @app.post("/index")
 def index(req: IndexRequest):
+    """Index a video or a whole playlist. Returns one result per video (with "error" if it failed)."""
     try:
-        return pipeline.index_video(req.source)
-    except Exception as e:  # bad URL, private video, no speech, ...
+        return pipeline.index_source(req.source, slides=req.slides)
+    except Exception as e:  # bad URL, private playlist, ...
         raise HTTPException(status_code=400, detail=str(e))
 
 
@@ -47,4 +51,4 @@ def index(req: IndexRequest):
 def ask(req: AskRequest):
     if not req.question.strip():
         raise HTTPException(status_code=400, detail="Question is empty.")
-    return pipeline.ask(req.question, video_id=req.video_id, k=req.k)
+    return pipeline.ask(req.question, video_id=req.video_id, k=req.k, hybrid=req.hybrid, rerank=req.rerank)

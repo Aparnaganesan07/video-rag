@@ -58,3 +58,21 @@ def chunk_segments(
         i = k
 
     return chunks
+
+
+def attach_slides(chunks: list[dict], slides: list[dict]) -> list[dict]:
+    """Add the on-screen text visible during each chunk as `slide_text`.
+
+    A slide belongs to a chunk if their time ranges overlap. Slides are joined
+    with " | " in time order; a slide shown across two chunks goes into both.
+    """
+    for c in chunks:
+        texts = [s["text"] for s in slides if s["start"] < c["end"] and s["end"] > c["start"]]
+        c["slide_text"] = " | ".join(dict.fromkeys(texts))  # dict.fromkeys = de-duplicate, keep order
+    return chunks
+
+
+def searchable_text(chunk: dict) -> str:
+    """What we embed and keyword-index: the speech plus any on-screen text."""
+    slide_text = chunk.get("slide_text") or ""
+    return f"{chunk['text']}\nOn screen: {slide_text}" if slide_text else chunk["text"]

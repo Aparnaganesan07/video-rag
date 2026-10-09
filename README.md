@@ -3,23 +3,26 @@
 Ask a question about a lecture video, get an answer where every claim cites a timestamp
 like **[17:33]**, and click it to play the video from that exact second.
 
-> **Status:** Phase 2 done (cited LLM answers + Streamlit UI + FastAPI).
-> Next: slide OCR, hybrid search, reranking (Phase 3), evaluation (Phase 4), deployment (Phase 5).
+> **Status:** Phase 3 done (slide OCR, hybrid search, reranking, playlists).
+> Next: evaluation (Phase 4), deployment (Phase 5).
 
 ## How it works
 
 ```
 INDEXING
-YouTube URL ──► yt-dlp (audio only, m4a) ──► faster-whisper (timestamped segments, cached JSON)
-            ──► chunker (~45s windows, 10s overlap) ──► bge-small-en-v1.5 embeddings
-            ──► ChromaDB (each chunk stores video_id + start/end seconds)
+YouTube URL / playlist
+  ├─► yt-dlp audio only (m4a) ─► faster-whisper ─► timestamped speech segments
+  └─► yt-dlp video only (≤720p) ─► PySceneDetect (brightness+edges) ─► keyframes ─► EasyOCR ─► slide text
+  ─► chunker: ~45s windows, 10s overlap, + slide text visible in each window
+  ─► bge-small-en-v1.5 embeddings ─► ChromaDB (video_id, start/end seconds, slide_text)
 
 QUERYING
-Question ──► bge query embedding ──► top-5 chunks
-         ──► prompt with transcript lines, each prefixed by its [mm:ss]
-         ──► Groq LLM (gpt-oss-120b) answers, citing [mm:ss] after every sentence
-         ──► citations parsed + checked against the retrieved sources (ungrounded ones flagged)
-         ──► UI: clicking [mm:ss] calls YouTube IFrame API player.seekTo(seconds)
+Question ─► vector search (top 20) ─┐
+         ─► BM25 keyword (top 20) ──┴─► Reciprocal Rank Fusion ─► bge-reranker-base (top 10 → 5)
+         ─► prompt: transcript lines + "(on screen)" slide lines, each with its [mm:ss]
+         ─► Groq LLM (gpt-oss-120b) answers, citing [mm:ss] after every sentence
+         ─► citations checked against the retrieved sources (ungrounded ones flagged)
+         ─► UI: clicking [mm:ss] calls YouTube IFrame API player.seekTo(seconds)
 ```
 
 ## Setup (Windows, CPU only)
@@ -28,12 +31,13 @@ Question ──► bge query embedding ──► top-5 chunks
 cd "C:\Users\aparn\Documents\video rag"
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-pip install torch --index-url https://download.pytorch.org/whl/cpu   # CPU-only torch, much smaller
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu   # CPU-only, much smaller
 pip install -r requirements.txt
 copy .env.example .env   # then put your Groq key (console.groq.com/keys) in .env
 ```
 
 Node.js (or Deno) must be installed: yt-dlp uses it to solve YouTube's JS challenge.
+No ffmpeg needed: audio and video are downloaded as separate streams and never merged.
 
 ## Usage
 
@@ -41,13 +45,15 @@ Node.js (or Deno) must be installed: yt-dlp uses it to solve YouTube's JS challe
 ```powershell
 streamlit run ui/streamlit_app.py
 ```
-Add a YouTube URL in the sidebar, ask a question, click any timestamp.
+Add a YouTube video or playlist in the sidebar, ask a question, click any timestamp.
 
 **CLI**
 ```powershell
-python -m app.cli index "https://www.youtube.com/watch?v=aircAruvnKk"
-python -m app.cli ask "why did people stop using sigmoid?"
-python -m app.cli search "what does a neuron hold?" -k 5        # retrieval only, no LLM
+python -m app.cli index "https://www.youtube.com/watch?v=JChPi0CRnDY"            # with slide OCR
+python -m app.cli index "https://www.youtube.com/playlist?list=..." --no-slides  # whole playlist, speech only
+python -m app.cli ask "what are the general approaches to transform questions?"
+python -m app.cli search "what is ReLU?" -k 5                                   # retrieval only, no LLM
+python -m app.cli search "what is ReLU?" --no-hybrid --no-rerank                # plain vector search
 python -m app.cli list
 ```
 
@@ -55,7 +61,8 @@ python -m app.cli list
 ```powershell
 uvicorn app.api:app --reload      # docs at http://127.0.0.1:8000/docs
 ```
-`GET /videos`, `POST /index {"source": url}`, `POST /ask {"question": "...", "video_id": null}`
+`GET /videos`, `POST /index {"source": url, "slides": true}`,
+`POST /ask {"question": "...", "video_id": null, "hybrid": true, "rerank": true}`
 
 **Tests**
 ```powershell
@@ -65,30 +72,58 @@ pytest
 ## Project layout
 
 ```
-app/ingest/      downloader, transcriber, chunker, (frames: Phase 3)
-app/retrieval/   embedder, vector_store, (hybrid_search, reranker: Phase 3)
+app/ingest/      downloader (audio, video, playlists), transcriber, frames (scenes + OCR), chunker
+app/retrieval/   embedder, vector_store, hybrid_search (BM25 + RRF), reranker (cross-encoder)
 app/generation/  answer.py: prompt, Groq call, citation parsing + grounding check
-app/pipeline.py  index_video(), search(), ask()
+app/pipeline.py  index_video(), index_source(), search(), ask()
 app/cli.py       command-line entry point
 app/api.py       FastAPI backend
 ui/              Streamlit app (player + clickable answer in one component)
-tests/           unit tests (chunker, citations)
+tests/           unit tests (chunker, citations, OCR helpers, RRF, BM25 tokenizer)
 eval/            evaluation set + metrics (Phase 4)
-data/            downloads, transcripts, vector DB (gitignored)
+data/            downloads, transcripts, frames, vector DB (gitignored)
 ```
 
 ## Key design choices
 
-- **Audio-only download** (`bestaudio[ext=m4a]`): no ffmpeg needed; PyAV inside faster-whisper decodes it.
+**Indexing**
+- **Audio-only + video-only downloads**: Whisper needs only audio, OCR needs only pictures, so we never
+  merge streams and never need ffmpeg.
 - **Whisper `base`, int8 on CPU**: good accuracy/speed trade-off; transcripts cached so re-indexing is instant.
 - **45s chunks, 10s overlap, cut on segment boundaries**: long enough to hold one idea, short enough
   that a hit points to a precise moment; the overlap keeps answers that straddle a boundary retrievable.
-- **bge-small-en-v1.5**: small (384-dim), fast on CPU, strong on retrieval benchmarks; queries get bge's
-  instruction prefix, passages don't.
-- **Retrieve by chunk, cite by sentence**: chunks are what we search, but the LLM sees each transcript
-  line with its own timestamp, so a citation points at the exact sentence, not just a 45s window.
+- **bge-small-en-v1.5**: small (384-dim), fast on CPU, strong on retrieval benchmarks.
+
+**Slides (OCR)**
+- **Scene detection on brightness + edges, not colour**: when a slide changes, colours barely move but
+  text (= edges) does. The default colour-based detector found 2 scenes in our test lecture; edges found 20.
+- **Resample long scenes every 45s** to catch slide builds and fades the detector misses.
+- **Skip OCR on unchanged frames** (tiny thumbnail diff) and **merge near-identical consecutive slides**
+  (text similarity ≥ 0.85): OCR costs ~6-9s per frame on CPU.
+- **Ignore the top 5% of the frame**: removes OS menu bars / browser tabs in screen recordings.
+- Slide text is embedded and keyword-indexed with the speech, and shown to the LLM as
+  `[mm:ss] (on screen) ...` lines it can cite. In our test video, "RAG-Fusion" and "Step-back"
+  appear only on slides: without OCR they were unsearchable.
+
+**Retrieval**
+- **Hybrid = vector + BM25, fused with Reciprocal Rank Fusion** (`1/(60+rank)`): vectors handle
+  paraphrases, BM25 handles exact rare terms ("ReLU", "HNSW"). RRF uses ranks only, so the two
+  incompatible score scales never need normalising.
+- **Cross-encoder reranking** (bge-reranker-base): reads question and chunk together, so it is more
+  accurate than comparing separate embeddings. Example: for "what is ReLU?" plain vector search put
+  two unrelated chunks at #2-#3; after reranking, the top two are both the ReLU discussion.
+- **Rerank only the top 10, at 320 tokens**: ~1s per pair on CPU at full length. Measured 20s → ~5s
+  with the same top-3.
+
+**Answering**
+- **Retrieve by chunk, cite by sentence**: the LLM sees each transcript line with its own timestamp.
 - **Grounding check**: every cited timestamp must fall inside a retrieved source (±5s); otherwise it's
   shown struck-through in red as a likely hallucination.
 - **Player + answer in one HTML component**: clicking a timestamp seeks the player in the browser,
-  without a Streamlit rerun, so the video doesn't reload. Citations from another video switch videos.
-- **Shared pipeline**: CLI, API and UI all call the same `pipeline.ask()`, so there's one code path to test.
+  without a Streamlit rerun. Citations from another video switch videos.
+
+## Known limitations
+- OCR on CPU is slow (~4 min for a 6-min screen-recorded lecture); use `--no-slides` for talking-head videos.
+- Screen recordings produce noisy OCR (notebook UI, menus). It's indexed anyway; the reranker and LLM cope.
+- gpt-oss at low reasoning effort sometimes answers "not found" when sources only partly cover a
+  question (`LLM_REASONING_EFFORT=medium` in `.env` is more thorough but slower).

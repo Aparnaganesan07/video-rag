@@ -4,6 +4,7 @@ Transcription is the slowest step, so results are cached as JSON per video.
 """
 
 import time
+from functools import lru_cache
 from pathlib import Path
 
 from app import config
@@ -30,6 +31,13 @@ def transcript_path(video_id: str) -> Path:
     return config.TRANSCRIPT_DIR / f"{video_id}.json"
 
 
+@lru_cache(maxsize=32)
+def load_segments(video_id: str) -> tuple[dict, ...]:
+    """Cached transcript segments for an already-indexed video (empty if none on disk)."""
+    path = transcript_path(video_id)
+    return tuple(load_json(path)["segments"]) if path.exists() else ()
+
+
 def transcribe(audio_path: str, video_id: str, force: bool = False) -> list[dict]:
     """Return a list of segments: [{"start": 0.0, "end": 4.2, "text": "..."}, ...]."""
     cache = transcript_path(video_id)
@@ -49,4 +57,5 @@ def transcribe(audio_path: str, video_id: str, force: bool = False) -> list[dict
     print(f"\n[transcribe] {len(segments)} segments in {time.time() - t0:.0f}s")
 
     save_json({"video_id": video_id, "language": info.language, "segments": segments}, cache)
+    load_segments.cache_clear()  # make sure the fresh transcript is picked up
     return segments

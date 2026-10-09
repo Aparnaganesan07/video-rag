@@ -30,10 +30,14 @@ BGE_QUERY_PREFIX = "Represent this sentence for searching relevant passages: "
 COLLECTION_NAME = "video_chunks"
 
 # --- Search ---
-TOP_K = 3
+TOP_K = 3          # results shown by `cli search`
+ANSWER_TOP_K = 5   # chunks given to the LLM as context
 
-# --- LLM (used from Phase 2) ---
+# --- LLM answers (Groq) ---
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+LLM_MODEL = os.getenv("LLM_MODEL", "openai/gpt-oss-120b")
+LLM_TEMPERATURE = 0.1  # low = sticks to the sources, less creative wording
+CITATION_SLACK_SECONDS = 5.0  # a citation counts as grounded if within this of a source chunk
 
 
 def ensure_dirs() -> None:

@@ -12,6 +12,14 @@ def format_timestamp(seconds: float) -> str:
     return f"{h}:{m:02d}:{s:02d}" if h else f"{m:02d}:{s:02d}"
 
 
+def parse_timestamp(text: str) -> int:
+    """'01:24' -> 84; '1:02:05' -> 3725. Inverse of format_timestamp."""
+    seconds = 0
+    for part in text.strip().split(":"):
+        seconds = seconds * 60 + int(part)
+    return seconds
+
+
 def youtube_link(video_id: str, seconds: float) -> str:
     """Deep link that opens the video at a given second."""
     return f"https://www.youtube.com/watch?v={video_id}&t={int(seconds)}s"

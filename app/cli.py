@@ -4,6 +4,7 @@ Usage:
     python -m app.cli index "https://www.youtube.com/watch?v=aircAruvnKk"
     python -m app.cli search "what is a neuron?"
     python -m app.cli search "what is a neuron?" --video aircAruvnKk -k 5
+    python -m app.cli ask "why did they stop using sigmoid?"
     python -m app.cli list
 """
 
@@ -33,6 +34,15 @@ def cmd_search(args):
         print(textwrap.indent(textwrap.fill(h["text"], width=100), "   "))
 
 
+def cmd_ask(args):
+    result = pipeline.ask(args.question, video_id=args.video)
+    print("\n" + textwrap.fill(result["answer"], width=100, replace_whitespace=False) + "\n")
+    for c in result["citations"]:
+        flag = "" if c["grounded"] else "   (!) not found in sources"
+        link = youtube_link(c["video_id"], c["seconds"]) if c["video_id"] else ""
+        print(f"  [{c['label']}] {link}{flag}")
+
+
 def cmd_list(_args):
     videos = vector_store.list_videos()
     if not videos:
@@ -55,6 +65,11 @@ def main():
     p.add_argument("-k", type=int, default=config.TOP_K, help="number of results")
     p.add_argument("--video", help="restrict search to one video id")
     p.set_defaults(func=cmd_search)
+
+    p = sub.add_parser("ask", help="answer a question with [mm:ss] citations (uses Groq)")
+    p.add_argument("question")
+    p.add_argument("--video", help="restrict to one video id")
+    p.set_defaults(func=cmd_ask)
 
     p = sub.add_parser("list", help="show indexed videos")
     p.set_defaults(func=cmd_list)

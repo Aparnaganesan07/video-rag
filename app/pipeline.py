@@ -1,6 +1,7 @@
 """Glue code: the two things the app does — index a video, search it."""
 
 from app import config
+from app.generation.answer import generate_answer
 from app.ingest.chunker import chunk_segments
 from app.ingest.downloader import download_audio
 from app.ingest.transcriber import transcribe
@@ -30,3 +31,13 @@ def index_video(source: str, force: bool = False) -> dict:
 def search(question: str, k: int = config.TOP_K, video_id: str | None = None) -> list[dict]:
     """Semantic search over indexed chunks. Phase 3 adds BM25 + reranking here."""
     return vector_store.query(embedder.embed_query(question), k=k, video_id=video_id)
+
+
+def ask(question: str, video_id: str | None = None, k: int = config.ANSWER_TOP_K) -> dict:
+    """Full RAG: retrieve chunks, then have the LLM answer with [mm:ss] citations.
+
+    Returns {"answer", "citations", "sources", "model"}.
+    """
+    hits = search(question, k=k, video_id=video_id)
+    result = generate_answer(question, hits)
+    return {**result, "sources": hits}

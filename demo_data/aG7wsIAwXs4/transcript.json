@@ -1,0 +1,1501 @@
+{
+  "video_id": "aG7wsIAwXs4",
+  "language": "en",
+  "segments": [
+    {
+      "start": 1.52,
+      "end": 2.72,
+      "text": "Hi, everyone."
+    },
+    {
+      "start": 2.72,
+      "end": 5.32,
+      "text": "I'm Eric Ambria from NTUC CDS."
+    },
+    {
+      "start": 5.32,
+      "end": 8.2,
+      "text": "And this is the course on understanding retrieval"
+    },
+    {
+      "start": 8.2,
+      "end": 11.08,
+      "text": "augmented generation or RAG."
+    },
+    {
+      "start": 11.08,
+      "end": 13.52,
+      "text": "This is based on the homonymous book,"
+    },
+    {
+      "start": 13.52,
+      "end": 17.8,
+      "text": "which is a Revisitation of Chris Manning's introduction"
+    },
+    {
+      "start": 17.8,
+      "end": 19.92,
+      "text": "to information retrieval."
+    },
+    {
+      "start": 19.92,
+      "end": 21.52,
+      "text": "So during these five lectures,"
+    },
+    {
+      "start": 21.52,
+      "end": 25.6,
+      "text": "we're going to be looking at basics of information retrieval"
+    },
+    {
+      "start": 25.6,
+      "end": 29.52,
+      "text": "and finally talk about RAG and agentic RAG."
+    },
+    {
+      "start": 30.52,
+      "end": 34.52,
+      "text": "So in this course, I'm not going to talk much about LLAMs"
+    },
+    {
+      "start": 34.52,
+      "end": 37.52,
+      "text": "and warden beddings because these are covered"
+    },
+    {
+      "start": 37.52,
+      "end": 40.52,
+      "text": "in this other course that I strongly recommend you"
+    },
+    {
+      "start": 40.52,
+      "end": 43.52,
+      "text": "to look at if you haven't."
+    },
+    {
+      "start": 43.52,
+      "end": 45.52,
+      "text": "So what is information retrieval?"
+    },
+    {
+      "start": 45.52,
+      "end": 48.52,
+      "text": "You can think of it as when you're studying for an exam,"
+    },
+    {
+      "start": 48.52,
+      "end": 51.52,
+      "text": "you're studying, you're absorbing knowledge, wisdom,"
+    },
+    {
+      "start": 51.52,
+      "end": 56.52,
+      "text": "to then be able to retrieve it when it's relevant."
+    },
+    {
+      "start": 56.52,
+      "end": 60.52,
+      "text": "When you need it, for example, to take the final exam."
+    },
+    {
+      "start": 60.52,
+      "end": 64.52,
+      "text": "And information is really the main treasure of mankind."
+    },
+    {
+      "start": 64.52,
+      "end": 68.52,
+      "text": "It's all about being able to collect relevant data"
+    },
+    {
+      "start": 68.52,
+      "end": 71.52,
+      "text": "and filter out the noise."
+    },
+    {
+      "start": 71.52,
+      "end": 75.52,
+      "text": "And so information retrieval actually is a classic topic"
+    },
+    {
+      "start": 75.52,
+      "end": 77.52,
+      "text": "that has been studied for decades,"
+    },
+    {
+      "start": 77.52,
+      "end": 81.52,
+      "text": "which encapsulates many other tasks."
+    },
+    {
+      "start": 81.52,
+      "end": 84.52,
+      "text": "And ultimately, it's about satisfying the user's information"
+    },
+    {
+      "start": 84.52,
+      "end": 89.52,
+      "text": "needs, including things like question answering,"
+    },
+    {
+      "start": 89.52,
+      "end": 93.52,
+      "text": "text summarization, topic modeling, pleasureism detection,"
+    },
+    {
+      "start": 93.52,
+      "end": 98.52,
+      "text": "trend discovery, sentiment analysis and more."
+    },
+    {
+      "start": 98.52,
+      "end": 102.52,
+      "text": "So let's look at the quick timeline of information retrieval."
+    },
+    {
+      "start": 102.52,
+      "end": 105.52,
+      "text": "We started with keyword based approaches,"
+    },
+    {
+      "start": 105.52,
+      "end": 108.52,
+      "text": "which is what we'll talk about in this lecture,"
+    },
+    {
+      "start": 108.52,
+      "end": 112.52,
+      "text": "like one hot encoding, where we were basically just focusing"
+    },
+    {
+      "start": 113.52,
+      "end": 116.52,
+      "text": "on the presence or absence of specific keywords"
+    },
+    {
+      "start": 116.52,
+      "end": 119.52,
+      "text": "to retrieve relevant documents."
+    },
+    {
+      "start": 119.52,
+      "end": 123.52,
+      "text": "And then we went on with more stats based retrieval."
+    },
+    {
+      "start": 123.52,
+      "end": 126.52,
+      "text": "This is what we're going to talk about in the next lecture."
+    },
+    {
+      "start": 126.52,
+      "end": 130.52,
+      "text": "So how to come up with the rank for every document"
+    },
+    {
+      "start": 130.52,
+      "end": 133.52,
+      "text": "to decide whether how much, how relevant they are"
+    },
+    {
+      "start": 133.52,
+      "end": 137.52,
+      "text": "to a specific query based on statistics."
+    },
+    {
+      "start": 137.52,
+      "end": 140.52,
+      "text": "And then later on, we started looking at more semantics"
+    },
+    {
+      "start": 141.52,
+      "end": 146.52,
+      "text": "where methods based, for example, on word embeddings."
+    },
+    {
+      "start": 146.52,
+      "end": 150.52,
+      "text": "And finally, today, the state of the art is RAC,"
+    },
+    {
+      "start": 150.52,
+      "end": 154.52,
+      "text": "retrieval augmented reality, which is the concomitant use"
+    },
+    {
+      "start": 154.52,
+      "end": 157.52,
+      "text": "of large language models, generative AI,"
+    },
+    {
+      "start": 157.52,
+      "end": 161.52,
+      "text": "with the old school information retrieval techniques"
+    },
+    {
+      "start": 161.52,
+      "end": 165.52,
+      "text": "to be able to find whatever you need on the web"
+    },
+    {
+      "start": 165.52,
+      "end": 167.52,
+      "text": "and answer your queries."
+    },
+    {
+      "start": 167.52,
+      "end": 169.52,
+      "text": "Then the future of information retrieval"
+    },
+    {
+      "start": 169.52,
+      "end": 172.52,
+      "text": "is a genetic rag where you have all these agents"
+    },
+    {
+      "start": 172.52,
+      "end": 179.52,
+      "text": "that know you well and can do all these tasks autonomously."
+    },
+    {
+      "start": 179.52,
+      "end": 182.52,
+      "text": "So we're going to be looking at different ways"
+    },
+    {
+      "start": 182.52,
+      "end": 185.52,
+      "text": "of representing documents in this lecture."
+    },
+    {
+      "start": 185.52,
+      "end": 188.52,
+      "text": "We'll start from the basics, one hot encoding."
+    },
+    {
+      "start": 188.52,
+      "end": 191.52,
+      "text": "Next lecture will be about bag of words."
+    },
+    {
+      "start": 191.52,
+      "end": 194.52,
+      "text": "And word embeddings is something that we talk about"
+    },
+    {
+      "start": 194.52,
+      "end": 197.52,
+      "text": "in the previous course."
+    },
+    {
+      "start": 197.52,
+      "end": 200.52,
+      "text": "Okay, so let's get started."
+    },
+    {
+      "start": 200.52,
+      "end": 201.52,
+      "text": "What is Boolean retrieval?"
+    },
+    {
+      "start": 201.52,
+      "end": 203.52,
+      "text": "Let's say that you have a query like this."
+    },
+    {
+      "start": 203.52,
+      "end": 206.52,
+      "text": "You want to find all the plays of Shakespeare"
+    },
+    {
+      "start": 206.52,
+      "end": 211.52,
+      "text": "that contain the words Brutus Caesar but not Calpurnia."
+    },
+    {
+      "start": 211.52,
+      "end": 216.52,
+      "text": "So you may think of maybe taking first all the documents"
+    },
+    {
+      "start": 216.52,
+      "end": 219.52,
+      "text": "that contain both Brutus and Caesar"
+    },
+    {
+      "start": 219.52,
+      "end": 223.52,
+      "text": "and then strip out the ones that contain Calpurnia."
+    },
+    {
+      "start": 223.52,
+      "end": 225.52,
+      "text": "But that's not very efficient, right?"
+    },
+    {
+      "start": 225.52,
+      "end": 227.52,
+      "text": "It will take a long time to do that."
+    },
+    {
+      "start": 227.52,
+      "end": 230.52,
+      "text": "The best thing to do, which is the whole concept"
+    },
+    {
+      "start": 230.52,
+      "end": 232.52,
+      "text": "of information retrieval,"
+    },
+    {
+      "start": 232.52,
+      "end": 235.52,
+      "text": "is that you create a model for your documents"
+    },
+    {
+      "start": 235.52,
+      "end": 239.52,
+      "text": "and then whenever you query the system,"
+    },
+    {
+      "start": 239.52,
+      "end": 243.52,
+      "text": "you're not actually querying into the collection of documents"
+    },
+    {
+      "start": 243.52,
+      "end": 246.52,
+      "text": "but into the model of your documents."
+    },
+    {
+      "start": 246.52,
+      "end": 248.52,
+      "text": "How can we create such model?"
+    },
+    {
+      "start": 248.52,
+      "end": 252.52,
+      "text": "In this course, we'll see sophisticated ways"
+    },
+    {
+      "start": 252.52,
+      "end": 256.52,
+      "text": "of creating these models, the simplest ways to do this"
+    },
+    {
+      "start": 256.52,
+      "end": 260.52,
+      "text": "and code presence and absence of different words"
+    },
+    {
+      "start": 260.52,
+      "end": 263.52,
+      "text": "within specific documents."
+    },
+    {
+      "start": 263.52,
+      "end": 266.52,
+      "text": "So we're looking at the place of Shakespeare."
+    },
+    {
+      "start": 266.52,
+      "end": 268.52,
+      "text": "We have six documents."
+    },
+    {
+      "start": 268.52,
+      "end": 270.52,
+      "text": "The columns are the documents."
+    },
+    {
+      "start": 270.52,
+      "end": 276.52,
+      "text": "On the rows, you have the words that make up those documents."
+    },
+    {
+      "start": 276.52,
+      "end": 278.52,
+      "text": "So this is just an example."
+    },
+    {
+      "start": 278.52,
+      "end": 281.52,
+      "text": "Of course, we have more than just seven words"
+    },
+    {
+      "start": 281.52,
+      "end": 283.52,
+      "text": "in this place of Shakespeare,"
+    },
+    {
+      "start": 283.52,
+      "end": 286.52,
+      "text": "but it's just to understand how this works."
+    },
+    {
+      "start": 286.52,
+      "end": 290.52,
+      "text": "So whenever I find the word Anthony, at least once,"
+    },
+    {
+      "start": 290.52,
+      "end": 293.52,
+      "text": "in the play, I put one."
+    },
+    {
+      "start": 293.52,
+      "end": 298.52,
+      "text": "If it's not present at all, I put zero."
+    },
+    {
+      "start": 298.52,
+      "end": 302.52,
+      "text": "So this is why I said it's encoding presence and absence."
+    },
+    {
+      "start": 302.52,
+      "end": 306.52,
+      "text": "This one doesn't mean that it's only present once."
+    },
+    {
+      "start": 306.52,
+      "end": 309.52,
+      "text": "It can be there multiple times."
+    },
+    {
+      "start": 309.52,
+      "end": 311.52,
+      "text": "I don't care in this case."
+    },
+    {
+      "start": 311.52,
+      "end": 317.22,
+      "text": "I just want to create a Boolean factor once and zeros."
+    },
+    {
+      "start": 317.22,
+      "end": 319.22,
+      "text": "So this is good. Why?"
+    },
+    {
+      "start": 319.22,
+      "end": 322.22,
+      "text": "Because then when we have a query, like the one that we just mentioned"
+    },
+    {
+      "start": 322.22,
+      "end": 325.22,
+      "text": "in the beginning, give me all the plays of Shakespeare"
+    },
+    {
+      "start": 325.22,
+      "end": 329.22,
+      "text": "that contain the words Brutus Caesar and not Culpurnia,"
+    },
+    {
+      "start": 329.22,
+      "end": 334.22,
+      "text": "I can convert that into a Boolean operation."
+    },
+    {
+      "start": 334.22,
+      "end": 337.22,
+      "text": "This is similar to the concept that we covered in the first course,"
+    },
+    {
+      "start": 337.22,
+      "end": 341.22,
+      "text": "where we say that, like in the case of Fourier transform,"
+    },
+    {
+      "start": 341.22,
+      "end": 344.22,
+      "text": "we go from one domain to another,"
+    },
+    {
+      "start": 344.22,
+      "end": 346.22,
+      "text": "do some calculations,"
+    },
+    {
+      "start": 346.22,
+      "end": 348.22,
+      "text": "and then go back to the original domain."
+    },
+    {
+      "start": 348.22,
+      "end": 352.22,
+      "text": "So here, instead of working directly with words,"
+    },
+    {
+      "start": 352.22,
+      "end": 356.22,
+      "text": "with documents like we did for word embeddings,"
+    },
+    {
+      "start": 356.22,
+      "end": 361.22,
+      "text": "we are translating, converting words into vectors."
+    },
+    {
+      "start": 361.22,
+      "end": 365.22,
+      "text": "How do we do that based on the model that we just created"
+    },
+    {
+      "start": 365.22,
+      "end": 368.22,
+      "text": "in the previous slide? So Brutus is what?"
+    },
+    {
+      "start": 368.22,
+      "end": 372.22,
+      "text": "Is 1, 1, 0, 1, 0, 0,"
+    },
+    {
+      "start": 372.22,
+      "end": 375.22,
+      "text": "because of how my model is engineered,"
+    },
+    {
+      "start": 375.22,
+      "end": 378.22,
+      "text": "because I'm only looking at the six documents,"
+    },
+    {
+      "start": 378.22,
+      "end": 381.22,
+      "text": "the six plays of Shakespeare."
+    },
+    {
+      "start": 381.22,
+      "end": 385.22,
+      "text": "So Brutus is 1, 1, 0, 1, 0, 0."
+    },
+    {
+      "start": 385.22,
+      "end": 387.22,
+      "text": "Same for Caesar."
+    },
+    {
+      "start": 387.22,
+      "end": 389.22,
+      "text": "Culpurnia is complemented."
+    },
+    {
+      "start": 389.22,
+      "end": 394.22,
+      "text": "So in theory, Culpurnia is 0, 1, 0, 0, 0, 0,"
+    },
+    {
+      "start": 394.22,
+      "end": 399.22,
+      "text": "but because I'm looking for the place that do not contain Culpurnia,"
+    },
+    {
+      "start": 399.22,
+      "end": 402.22,
+      "text": "then I have to take the complemented one."
+    },
+    {
+      "start": 402.22,
+      "end": 407.22,
+      "text": "So when I do it, this operation, which is very fast for any calculator,"
+    },
+    {
+      "start": 407.22,
+      "end": 411.22,
+      "text": "because we're just converting to 1, 0,"
+    },
+    {
+      "start": 411.22,
+      "end": 414.22,
+      "text": "then I obtain another Boolean vector."
+    },
+    {
+      "start": 414.22,
+      "end": 418.22,
+      "text": "What is this Boolean vector, 1, 0, 0, 0, 0?"
+    },
+    {
+      "start": 418.22,
+      "end": 421.22,
+      "text": "It's my answer in this model,"
+    },
+    {
+      "start": 421.22,
+      "end": 426.22,
+      "text": "which I then have to reconvert to the original model."
+    },
+    {
+      "start": 426.22,
+      "end": 429.22,
+      "text": "So 1, 0, 0, 1, 0, 0 is what?"
+    },
+    {
+      "start": 429.22,
+      "end": 432.22,
+      "text": "Basically, it's Anthony and Cleopatra,"
+    },
+    {
+      "start": 432.22,
+      "end": 435.22,
+      "text": "and Hamlet, document number one,"
+    },
+    {
+      "start": 435.22,
+      "end": 437.22,
+      "text": "and document number four."
+    },
+    {
+      "start": 437.22,
+      "end": 439.22,
+      "text": "So this is the answer to my query."
+    },
+    {
+      "start": 439.22,
+      "end": 442.22,
+      "text": "I didn't really go into the documents."
+    },
+    {
+      "start": 442.22,
+      "end": 445.22,
+      "text": "I just used my model to answer this query."
+    },
+    {
+      "start": 445.22,
+      "end": 449.22,
+      "text": "So this is the difference between having a model"
+    },
+    {
+      "start": 449.22,
+      "end": 451.22,
+      "text": "or information retrieval,"
+    },
+    {
+      "start": 451.22,
+      "end": 454.22,
+      "text": "and just working directly with the documents."
+    },
+    {
+      "start": 454.22,
+      "end": 457.22,
+      "text": "So if I ask a friend of mine, this query,"
+    },
+    {
+      "start": 457.22,
+      "end": 461.22,
+      "text": "someone who read all the place of Shakespeare,"
+    },
+    {
+      "start": 461.22,
+      "end": 466.22,
+      "text": "they will have to think through and maybe have read all the place."
+    },
+    {
+      "start": 466.22,
+      "end": 469.22,
+      "text": "But in this case, I'm not even looking at the documents."
+    },
+    {
+      "start": 469.22,
+      "end": 476.22,
+      "text": "I'm just using the model that I created to answer this query very quickly,"
+    },
+    {
+      "start": 476.22,
+      "end": 479.22,
+      "text": "because, again, it's just Boolean operations, right?"
+    },
+    {
+      "start": 479.22,
+      "end": 483.22,
+      "text": "That's what computers are best at."
+    },
+    {
+      "start": 483.22,
+      "end": 486.22,
+      "text": "Now, we only consider a very simple example"
+    },
+    {
+      "start": 486.22,
+      "end": 489.22,
+      "text": "with very few documents and very few words."
+    },
+    {
+      "start": 489.22,
+      "end": 493.22,
+      "text": "In reality, you can imagine that even for a simple case like this,"
+    },
+    {
+      "start": 493.22,
+      "end": 496.22,
+      "text": "where I only have six documents,"
+    },
+    {
+      "start": 496.22,
+      "end": 499.22,
+      "text": "I would have a very tall matrix, right?"
+    },
+    {
+      "start": 499.22,
+      "end": 502.22,
+      "text": "Because then in reality,"
+    },
+    {
+      "start": 502.22,
+      "end": 507.22,
+      "text": "all these place of Shakespeare definitely do not have only seven words."
+    },
+    {
+      "start": 507.22,
+      "end": 509.22,
+      "text": "They will have thousands of words."
+    },
+    {
+      "start": 509.22,
+      "end": 511.22,
+      "text": "So this would be a very tall matrix."
+    },
+    {
+      "start": 511.22,
+      "end": 513.22,
+      "text": "And most importantly,"
+    },
+    {
+      "start": 513.22,
+      "end": 516.22,
+      "text": "it will be a very sparse matrix."
+    },
+    {
+      "start": 516.22,
+      "end": 520.22,
+      "text": "And we are not very good at working with sparse matrices."
+    },
+    {
+      "start": 520.22,
+      "end": 522.22,
+      "text": "So how can I optimize this,"
+    },
+    {
+      "start": 522.22,
+      "end": 526.22,
+      "text": "especially when I start having a lot of documents,"
+    },
+    {
+      "start": 526.22,
+      "end": 528.22,
+      "text": "then as I add more documents,"
+    },
+    {
+      "start": 528.22,
+      "end": 531.22,
+      "text": "I will have more and more sparse matrices."
+    },
+    {
+      "start": 531.22,
+      "end": 536.22,
+      "text": "So what if instead of recording the Boolean vectors,"
+    },
+    {
+      "start": 536.22,
+      "end": 538.22,
+      "text": "I just focus on the ones."
+    },
+    {
+      "start": 538.22,
+      "end": 542.22,
+      "text": "These are the things that are more interested in, right?"
+    },
+    {
+      "start": 542.22,
+      "end": 548.22,
+      "text": "The presence of a word like Calpurnia in a document like Julius Caesar."
+    },
+    {
+      "start": 548.22,
+      "end": 552.22,
+      "text": "So a vector like Calpurnia,"
+    },
+    {
+      "start": 552.22,
+      "end": 557.22,
+      "text": "instead of encoding it as 0, 1, 0, 0, 0, 0, 0,"
+    },
+    {
+      "start": 558.22,
+      "end": 564.22,
+      "text": "I can just say, OK, I got a 1 at position 2."
+    },
+    {
+      "start": 564.22,
+      "end": 567.22,
+      "text": "This is what an inverted index does."
+    },
+    {
+      "start": 567.22,
+      "end": 572.22,
+      "text": "So instead of having Boolean vectors that are of a fixed size,"
+    },
+    {
+      "start": 572.22,
+      "end": 578.22,
+      "text": "instead I have this index that just tells me where the ones are."
+    },
+    {
+      "start": 578.22,
+      "end": 584.22,
+      "text": "So for example, this vector 31, 54, and 101 tells me that"
+    },
+    {
+      "start": 584.22,
+      "end": 587.22,
+      "text": "of all the documents I have,"
+    },
+    {
+      "start": 587.22,
+      "end": 592.22,
+      "text": "which could be like definitely more than 173."
+    },
+    {
+      "start": 592.22,
+      "end": 597.22,
+      "text": "The word Calpurnia only appears in document number 31,"
+    },
+    {
+      "start": 597.22,
+      "end": 601.22,
+      "text": "document number 54, and document number 101."
+    },
+    {
+      "start": 601.22,
+      "end": 605.62,
+      "text": "What happens if documents change,"
+    },
+    {
+      "start": 605.62,
+      "end": 608.62,
+      "text": "and there is a new word that appears,"
+    },
+    {
+      "start": 608.62,
+      "end": 611.62,
+      "text": "then I will have to add it in the right place."
+    },
+    {
+      "start": 611.62,
+      "end": 614.62,
+      "text": "I cannot just append it at the end."
+    },
+    {
+      "start": 614.62,
+      "end": 619.62,
+      "text": "If suddenly the word Caesar appears in document 14,"
+    },
+    {
+      "start": 619.62,
+      "end": 623.62,
+      "text": "I will have to add it here between 6 and 16,"
+    },
+    {
+      "start": 623.62,
+      "end": 627.62,
+      "text": "because of how the inverted index work."
+    },
+    {
+      "start": 627.62,
+      "end": 630.62,
+      "text": "Why? Because then we have to do some operations,"
+    },
+    {
+      "start": 630.62,
+      "end": 632.62,
+      "text": "like the merge operation,"
+    },
+    {
+      "start": 632.62,
+      "end": 637.62,
+      "text": "to find commonalities between these indexes."
+    },
+    {
+      "start": 637.62,
+      "end": 640.62,
+      "text": "But so this is where we are at now."
+    },
+    {
+      "start": 640.62,
+      "end": 643.62,
+      "text": "We have our dictionary, our list of words,"
+    },
+    {
+      "start": 643.62,
+      "end": 649.62,
+      "text": "and then we have the postings that represent where these words appear"
+    },
+    {
+      "start": 649.62,
+      "end": 652.62,
+      "text": "in my collection of documents."
+    },
+    {
+      "start": 652.62,
+      "end": 658.62,
+      "text": "So the ways we build this dictionary can be more or less sophisticated."
+    },
+    {
+      "start": 658.62,
+      "end": 661.62,
+      "text": "I can just blindly add any word that I find,"
+    },
+    {
+      "start": 661.62,
+      "end": 664.62,
+      "text": "or I can do more sophisticated stuff,"
+    },
+    {
+      "start": 664.62,
+      "end": 667.62,
+      "text": "like doing some lematization or stemming,"
+    },
+    {
+      "start": 667.62,
+      "end": 670.62,
+      "text": "and case folding, and so on,"
+    },
+    {
+      "start": 670.62,
+      "end": 673.62,
+      "text": "removing or stop words and so on."
+    },
+    {
+      "start": 673.62,
+      "end": 678.62,
+      "text": "So for example, here, if I have a very simple document"
+    },
+    {
+      "start": 678.62,
+      "end": 680.62,
+      "text": "that just contains the words,"
+    },
+    {
+      "start": 680.62,
+      "end": 682.62,
+      "text": "friends, Romans, and countrymen,"
+    },
+    {
+      "start": 682.62,
+      "end": 686.62,
+      "text": "I can use a tokenizer to remove punctuations"
+    },
+    {
+      "start": 686.62,
+      "end": 689.62,
+      "text": "and find the specific words."
+    },
+    {
+      "start": 689.62,
+      "end": 692.62,
+      "text": "Then I can use some linguistic modules,"
+    },
+    {
+      "start": 692.62,
+      "end": 696.62,
+      "text": "lematization to remove plurals, for example,"
+    },
+    {
+      "start": 696.62,
+      "end": 698.62,
+      "text": "or even case folding,"
+    },
+    {
+      "start": 698.62,
+      "end": 701.62,
+      "text": "because otherwise I would have the same word,"
+    },
+    {
+      "start": 701.62,
+      "end": 705.62,
+      "text": "friends with capital F and small F in my dictionary,"
+    },
+    {
+      "start": 705.62,
+      "end": 707.62,
+      "text": "which is not what I want."
+    },
+    {
+      "start": 707.62,
+      "end": 710.62,
+      "text": "That's why I need to do a bit of pre-processing."
+    },
+    {
+      "start": 710.62,
+      "end": 715.62,
+      "text": "Again, these are things that we discussed in the course of understanding NLU."
+    },
+    {
+      "start": 715.62,
+      "end": 719.62,
+      "text": "But ultimately, I'm left with this inverted index."
+    },
+    {
+      "start": 719.62,
+      "end": 722.62,
+      "text": "So let's see exactly how to build it from scratch."
+    },
+    {
+      "start": 722.62,
+      "end": 725.62,
+      "text": "Let's say that we have these two documents."
+    },
+    {
+      "start": 725.62,
+      "end": 729.62,
+      "text": "How do we build the inverted index for these two documents?"
+    },
+    {
+      "start": 729.62,
+      "end": 734.62,
+      "text": "I start by listing all the words that appear in each document,"
+    },
+    {
+      "start": 734.62,
+      "end": 735.62,
+      "text": "one by one."
+    },
+    {
+      "start": 735.62,
+      "end": 741.62,
+      "text": "So I start with document one every time I encounter a new word."
+    },
+    {
+      "start": 741.62,
+      "end": 745.62,
+      "text": "I just listed and I specify where it appears."
+    },
+    {
+      "start": 745.62,
+      "end": 750.62,
+      "text": "So after I finish with document one, I continue with document two."
+    },
+    {
+      "start": 750.62,
+      "end": 752.62,
+      "text": "And then what can I do?"
+    },
+    {
+      "start": 752.62,
+      "end": 755.62,
+      "text": "I can order them by alphabetical order."
+    },
+    {
+      "start": 755.62,
+      "end": 759.62,
+      "text": "So it's easier for me to see what's happening here."
+    },
+    {
+      "start": 759.62,
+      "end": 764.62,
+      "text": "For example, I can see very quickly that Bluetooth appears in both documents"
+    },
+    {
+      "start": 764.62,
+      "end": 768.62,
+      "text": "and then some words are repeated and so on."
+    },
+    {
+      "start": 768.62,
+      "end": 772.62,
+      "text": "So a better way to represent this, as we said,"
+    },
+    {
+      "start": 772.62,
+      "end": 776.62,
+      "text": "is using the inverted index, which is a list, like a Python list,"
+    },
+    {
+      "start": 776.62,
+      "end": 781.62,
+      "text": "that contains the IDs of the documents."
+    },
+    {
+      "start": 781.62,
+      "end": 784.62,
+      "text": "So don't get confused."
+    },
+    {
+      "start": 784.62,
+      "end": 789.62,
+      "text": "This two, for example, doesn't mean that Bluetooth is contained in a document twice."
+    },
+    {
+      "start": 789.62,
+      "end": 794.62,
+      "text": "It means that it's contained in document two, at least once."
+    },
+    {
+      "start": 794.62,
+      "end": 800.62,
+      "text": "And here I can also save the frequency of the word Bluetooth in my document collection."
+    },
+    {
+      "start": 801.62,
+      "end": 807.62,
+      "text": "So these two here means that the word Bluetooth appeared in two of my documents."
+    },
+    {
+      "start": 807.62,
+      "end": 809.62,
+      "text": "Why do we need this?"
+    },
+    {
+      "start": 809.62,
+      "end": 810.62,
+      "text": "We'll see it later."
+    },
+    {
+      "start": 810.62,
+      "end": 818.62,
+      "text": "I can save it as metadata or I can anytime find the length of this list by using,"
+    },
+    {
+      "start": 818.62,
+      "end": 824.06,
+      "text": "for example, the land command in Python."
+    },
+    {
+      "start": 824.06,
+      "end": 826.06,
+      "text": "So why do we need the frequency?"
+    },
+    {
+      "start": 826.06,
+      "end": 828.06,
+      "text": "We'll discuss that later."
+    },
+    {
+      "start": 828.06,
+      "end": 836.06,
+      "text": "But then this is what I get after collecting all the words and presence of these words in two documents"
+    },
+    {
+      "start": 836.06,
+      "end": 839.06,
+      "text": "and reordering by alphabetical order."
+    },
+    {
+      "start": 839.06,
+      "end": 846.06,
+      "text": "I get this, which is a much better way than just using the original Boolean model."
+    },
+    {
+      "start": 846.06,
+      "end": 852.06,
+      "text": "The problem is that now how do I do those beautiful Boolean operations that we saw earlier?"
+    },
+    {
+      "start": 852.06,
+      "end": 857.06,
+      "text": "So we said that we do all this because then a Boolean operation like this is something"
+    },
+    {
+      "start": 857.06,
+      "end": 862.06,
+      "text": "that my computer can do very, very quickly, very easily."
+    },
+    {
+      "start": 862.06,
+      "end": 865.06,
+      "text": "And now we don't have those zeros and ones anymore, right?"
+    },
+    {
+      "start": 865.06,
+      "end": 869.06,
+      "text": "Because we converted our model to the inverted index."
+    },
+    {
+      "start": 869.06,
+      "end": 877.06,
+      "text": "But this is an operation called merge operation that is also very easy to do for a program like Python."
+    },
+    {
+      "start": 877.06,
+      "end": 883.06,
+      "text": "You're just basically looking at two lists of numbers and find the ones that are common."
+    },
+    {
+      "start": 883.06,
+      "end": 891.06,
+      "text": "Python, it would be just using the end command between list one and list two and represented as a list."
+    },
+    {
+      "start": 891.06,
+      "end": 906.6,
+      "text": "It would give me the two common documents that I need in this case where my query is finding all the documents that contain both Brutus and Caesar."
+    },
+    {
+      "start": 906.6,
+      "end": 913.6,
+      "text": "What's the problem of Boolean query is that it's only good to find an exact match."
+    },
+    {
+      "start": 913.6,
+      "end": 919.6,
+      "text": "So if you're doing a search query on the web, it's pretty useless, right?"
+    },
+    {
+      "start": 919.6,
+      "end": 922.6,
+      "text": "We'll talk about this later in lecture two."
+    },
+    {
+      "start": 922.6,
+      "end": 933.6,
+      "text": "But if you're looking for something in your computer or in your email, so you're looking for an email or a document that you remember it exists, then this isn't still very good."
+    },
+    {
+      "start": 933.6,
+      "end": 939.6,
+      "text": "There is no point to use more complex algorithms for this."
+    },
+    {
+      "start": 939.6,
+      "end": 958.0,
+      "text": "And that's why, for example, even today, your macOS spotlight to find documents in your computer works like that or even when you search for emails in your mailbox, it's also done by Boolean query."
+    },
+    {
+      "start": 958.0,
+      "end": 969.0,
+      "text": "So now let's look at some optimizations. So how can I make sure that if I have a long query like this, it's in the best possible order."
+    },
+    {
+      "start": 969.0,
+      "end": 982.0,
+      "text": "How do I, for example, do a bit of pre-processing to reorder this query so that it takes less time for my system to answer this query."
+    },
+    {
+      "start": 982.0,
+      "end": 990.0,
+      "text": "As it happens many times in many computer science problems, you have to start from the most constraining variable."
+    },
+    {
+      "start": 990.0,
+      "end": 1008.0,
+      "text": "So if I have a query like this, Brutus and Calpurnia and Caesar, before I even do anything, before I go into my model and do those merge operations that we just talk about, I want to reorder this query so that I start from the most constraining variable."
+    },
+    {
+      "start": 1008.0,
+      "end": 1011.0,
+      "text": "Which one is it? It's Calpurnia, right?"
+    },
+    {
+      "start": 1011.0,
+      "end": 1026.0,
+      "text": "If no document containing the word Calpurnia, then there's no point in go and check Brutus and Caesar, right? So I start from the most constraining word Calpurnia that only appears in three documents."
+    },
+    {
+      "start": 1026.0,
+      "end": 1047.0,
+      "text": "And then if that is true, I continue. Why? Because the Boolean operation made of end, it's only true if all the items are true. So I want to check first the most constraining one, I would reorder this query as what Calpurnia and Brutus and Caesar."
+    },
+    {
+      "start": 1048.0,
+      "end": 1070.0,
+      "text": "And this is something that I can do quite easily, because first of all, we kept the frequency before, right? But also, as I said, that's something that I can get very quickly in Python or many other programming languages, because it's just the length of that list, again, we can say those inverted indexes as lists in our system."
+    },
+    {
+      "start": 1074.17,
+      "end": 1088.17,
+      "text": "What do I do when I have also or operation? So when I have an or operation, I have to look at both words and so I would, I would have to consider this as a summation of the frequencies."
+    },
+    {
+      "start": 1089.17,
+      "end": 1106.17,
+      "text": "And then I proceed, as we said in the previous slides, so first I do the ors, and then I proceed an increasing order of or sizes. Anyway, if you don't understand this, don't worry because we have some tutorials about this."
+    },
+    {
+      "start": 1107.17,
+      "end": 1128.17,
+      "text": "So what do I do when I have phrase queries like this stand for university or names of people or or name entities? So again, this is something that we talk about in the in the previous course of understanding NLU, when we talk about concept extraction and name entity record."
+    },
+    {
+      "start": 1131.44,
+      "end": 1153.44,
+      "text": "We get two possible options for this first attempt would be to have a separate dictionary for by words. So I would have this two word windows that I slide through my documents and for each of them, I get a by word that for which then I can build my own separate inverted index."
+    },
+    {
+      "start": 1153.44,
+      "end": 1174.44,
+      "text": "Now, this sounds like a good idea, but actually it's not that good because then who tells me which ones are the good by words and which ones are not if you have a simple query like this stand for university, Palo Alto, and you slide your by word window through this query."
+    },
+    {
+      "start": 1175.44,
+      "end": 1184.44,
+      "text": "You find two by words that are relevant stand for university and Palo Alto, but then for example university Palo doesn't mean anything."
+    },
+    {
+      "start": 1184.44,
+      "end": 1203.44,
+      "text": "So in theory, you can find which by words are significant and which ones are not because then a by word like this would most likely be not found many times in the in the rest of the documents, but still can be tricky and also ambiguous sometimes because then you see in a situation."
+    },
+    {
+      "start": 1204.44,
+      "end": 1217.44,
+      "text": "Like this she may miss world to I can get a by word like miss world that doesn't really have anything to do with the current piece of text."
+    },
+    {
+      "start": 1217.44,
+      "end": 1231.44,
+      "text": "So that's exactly why this solution is more popular positional index is this is also something that we discuss in the previous course when we were talking about transformers."
+    },
+    {
+      "start": 1231.44,
+      "end": 1255.44,
+      "text": "So this may look like a very stupid way of encoding documents because it looks like really like brute force. I'm just for each document I save at which position that word appears. So for example, this first role means that the word angel is present in documents to four and seven."
+    },
+    {
+      "start": 1255.44,
+      "end": 1265.44,
+      "text": "At the specific position, so this for example means that angels is present in document seven at position 17."
+    },
+    {
+      "start": 1265.44,
+      "end": 1284.44,
+      "text": "But this is still very good because then it allows me to do more complex staff, for example, when we do transformers and also when I have special queries like this to be or not to be the only way to find documents that contain this exact sequence is to use."
+    },
+    {
+      "start": 1284.44,
+      "end": 1307.44,
+      "text": "So is positional index better than by words yes and no, you can use a mix of both the problem with positional index is also that it occupies a lot of space right because you see for every word you have to save all this information."
+    },
+    {
+      "start": 1307.44,
+      "end": 1322.44,
+      "text": "So look at combination schemes where you use for example a by word index for specific name entities like names of people or names of products titles of books movies and so on."
+    },
+    {
+      "start": 1322.44,
+      "end": 1326.44,
+      "text": "And for the rest you use positional indexes."
+    },
+    {
+      "start": 1326.44,
+      "end": 1331.44,
+      "text": "And now let's look at two empirical lows that can help us better understand our data."
+    },
+    {
+      "start": 1331.44,
+      "end": 1339.44,
+      "text": "The first is the keep slow that helps me understand how my vocabulary grows as I keep adding more documents."
+    },
+    {
+      "start": 1339.44,
+      "end": 1345.44,
+      "text": "So before we saw that we have only six documents and maybe hundreds of rows."
+    },
+    {
+      "start": 1345.44,
+      "end": 1360.44,
+      "text": "The question here is as I keep adding more documents how proportionally my vocabulary grows with that. So before we had a very tall matrix because we had six documents and hundreds of words."
+    },
+    {
+      "start": 1360.44,
+      "end": 1375.44,
+      "text": "As I keep adding more documents, how does my vocabulary size grow does it grow exponentially does it grow linearly lucky for us it grows quite slowly it follows a logarithmic curve."
+    },
+    {
+      "start": 1375.44,
+      "end": 1388.44,
+      "text": "And so that's good news and that's because as I add a new document it's very likely that many of the words that make up this new documents are already covered in the previous ones."
+    },
+    {
+      "start": 1388.44,
+      "end": 1399.44,
+      "text": "Another interesting low is the zip slot which is also an empirical low that tells me what's the frequency of the terms in my in my document collection."
+    },
+    {
+      "start": 1399.44,
+      "end": 1409.44,
+      "text": "So this can be very useful for example to find out what are the stop words that I may want to remove in my in my system."
+    },
+    {
+      "start": 1409.44,
+      "end": 1422.44,
+      "text": "So you see that words that like stop was like the off and and so on are the ones that are most present and then they go down in a kind of a very very fast."
+    },
+    {
+      "start": 1422.44,
+      "end": 1435.44,
+      "text": "And so also the information that actually we have at the tail is is very important for us will see that in lecture two how to measure the rarity of some terms."
+    },
+    {
+      "start": 1435.44,
+      "end": 1445.44,
+      "text": "So the zip slow tells us that the most frequent word will occur twice as often as the second one three times as often as the third one and so on."
+    },
+    {
+      "start": 1445.44,
+      "end": 1457.44,
+      "text": "So this again can be useful to do some optimization so to conclude this lecture let's talk about some optimization techniques first is keep pointers."
+    },
+    {
+      "start": 1457.44,
+      "end": 1486.44,
+      "text": "And how can we do the merge operation faster this again is something that we can easily do with Python but let's say if I want if I'm working on harder and I want to optimize my system then one trick that I can use is that I want I will skip some sections of the of the lists that I have to check because for example if I know that between eight and 41."
+    },
+    {
+      "start": 1486.44,
+      "end": 1499.82,
+      "text": "There is nothing for this specific word and there is no point for me to go and check whatever is in between this gap right so this is how ski pointers work."
+    },
+    {
+      "start": 1499.82,
+      "end": 1514.82,
+      "text": "To conclude let's also look at some compression techniques how can we compress our system not just to save memory but also to make it faster so the two big questions are how to compress the dictionary."
+    },
+    {
+      "start": 1514.82,
+      "end": 1531.82,
+      "text": "And finally how to compress the postings so compression is really important not just for the size of your system but also to make it faster and but here you can see that by applying some simple compression techniques like removing numbers."
+    },
+    {
+      "start": 1531.82,
+      "end": 1558.82,
+      "text": "Case folding removing stopper systeming I can really reduce the size occupied by my system that again if I'm putting it on hardware can be important so what's the smart way to compress the dictionary so in theory I need to have some sort of table for each row I have my word and then all the information associated with it like the postings the frequency and so on."
+    },
+    {
+      "start": 1558.82,
+      "end": 1581.82,
+      "text": "Now what if I represent my dictionary as a string like this this will save me a lot of space right but then how to know where each word ends and begins this looks a bit messy right so instead I can use numbers to tell me where each word ends and starts."
+    },
+    {
+      "start": 1582.82,
+      "end": 1604.82,
+      "text": "And this so this is called blocking because i'm dividing my string into blocks and this is useful because then if I reorder my dictionary in alphabetical order, then I can also do front coding what is front coding I use the stem or lemma or of the word and then add the differences after."
+    },
+    {
+      "start": 1604.82,
+      "end": 1615.06,
+      "text": "The suffix six or whatever else is needed to then reconstruct the original that you see here."
+    },
+    {
+      "start": 1616.06,
+      "end": 1623.06,
+      "text": "So when you apply these two together blocking and front coding actually you can save a lot of space."
+    },
+    {
+      "start": 1624.06,
+      "end": 1649.06,
+      "text": "Last thing I want to talk about in this lecture is the compression of postings this is very similar concept and it's the fact that when you have postings which again are encoding where the ones are in your system as you have bigger and bigger numbers this occupy a lot of space in your system but then if I just add the difference the gaps between these two."
+    },
+    {
+      "start": 1649.06,
+      "end": 1669.06,
+      "text": "I can save a lot of space and this may sound like a bit too much just to save maybe a few bits but then when I start having hundreds of thousands of documents it's a big difference between saving this big number or just putting one."
+    },
+    {
+      "start": 1669.06,
+      "end": 1679.06,
+      "text": "Okay so that concludes lecture one let me know if you have any questions and if not i'll see you next lecture."
+    }
+  ]
+}

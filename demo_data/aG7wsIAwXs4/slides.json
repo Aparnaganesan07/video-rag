@@ -1,0 +1,342 @@
+[
+  {
+    "start": 0.0,
+    "end": 11.61,
+    "text": "Understanding Retrieval-Augmented Generation Erik Cambria sentic net xcom/senticnet fb com/senticnet youtube com/ @senticnet linkedin com/company/senticnet Erik Cambria, PhD, MBA, FIEEE Professor of Al @ NTU CCDS (cambria@ntu.edu sg) Visiting Professor @ MIT Media Lab (cambria@media mit edu) Founder of SenticNet (business sentic net) & finaXai (finaxai.com)"
+  },
+  {
+    "start": 11.61,
+    "end": 29.63,
+    "text": "Course overview Lecture 1: Boolean Retrieval Erik Cambria Erik Cambria Term-document matrix Inverted index Understanding Query processing Lecture 2: Ranked Retrieval Retrieval-Augmented of-words model TF-IDF scoring Generation Similarity metrics Lecture 3: Efficient Retrieval Text categorization Lecture 4: Enhanced Retrieval Retrieval evaluation Cumulative gain Relevance feedback Lecture 5: Web Retrieval Web search Springer Retrieval-augmented generation Springer Agentic RAG Bag-"
+  },
+  {
+    "start": 29.63,
+    "end": 42.91,
+    "text": "Related course Understanding Natural Language Understanding Lecture Data Science Understanding Erik Cambria Natural Language Understanding Understanding Natural Language Understanding Lecture 2: Al Basics Understanding NLU Understanding Natural Language Understanding - Lecture 3. Past Future of Al Play Comments Understanding Natural Language Understanding Lecture Suitcase Model Vidcolecture serics on Understonding NLU Understanding Natural Language Understanding Lecture Neurosymbolic All httpslInlu sentic net"
+  },
+  {
+    "start": 42.91,
+    "end": 59.73,
+    "text": "Information retrieval Erik Cambria info for exam Short term term Your exam attention ~storage Long retrieval"
+  },
+  {
+    "start": 59.73,
+    "end": 77.08,
+    "text": "Information Erik Cambria Information is the main treasure of mankind Without efficient management; such a treasure becomes useless: the more we have, the less we can use"
+  },
+  {
+    "start": 77.08,
+    "end": 85.42,
+    "text": "Information need Erik Cambria IR is a task of automatically satisfying the user'$ information need Understand the information need Satisfy the information need But the needs are very different; IR has many faces_."
+  },
+  {
+    "start": 85.42,
+    "end": 97.7,
+    "text": "Types of information need Erik Cambria Find a document or documents What for? Answer a question Save time on reading Find what the document is about Check authenticity Find what's new Mine opinions and more:"
+  },
+  {
+    "start": 97.7,
+    "end": 103.97,
+    "text": "IR Timeline Erik Cambria 1990s Keyword-based 'Retrieval"
+  },
+  {
+    "start": 103.97,
+    "end": 118.85,
+    "text": "Keyword-based Retrieval Erik Cambria Tourist Landmarks Eiffel in Paris Attractions Find: \"Tourist Landmarks Keywords: Search Relevant \"Tourist , \"Attractions\" & Match Results \"Landmarks\" Top Tourist Spots Relevant Documents Irrelevant Results Tower Famous Guide"
+  },
+  {
+    "start": 118.85,
+    "end": 124.59,
+    "text": "IR Timeline Erik Cambria 1990s"
+  },
+  {
+    "start": 124.59,
+    "end": 135.4,
+    "text": "Statistical Retrieval Erik Cambria Tourist Attractions Top Travel Vacation Guide Landmarks Famous Landmarl 0,68 Find: \"Tourist Score: 0.60 Analyze & Score Dog 0.12 High Relevance Low Relevance Results Ranked | Query Grooming Relevance"
+  },
+  {
+    "start": 135.4,
+    "end": 140.94,
+    "text": "IR Timeline Erik Cambria 1990s 2000s Keyword-based 'Retrieval"
+  },
+  {
+    "start": 140.94,
+    "end": 146.41,
+    "text": "Semantic Retrieval Erik Cambria Tourist Famous Eiffel Tower 0.76 Attractions Landmarks Attractions Find: \"Best ourtss\" Top Tourist Spots Query Score: 0.60 Understand Meaning Famous Places to Visit Semantic Match Semantic Match Top Meaningful Results"
+  },
+  {
+    "start": 146.41,
+    "end": 151.89,
+    "text": "IR Timeline Erik Cambria 1990s 2010s Keyword-based Statistical Sgeaetial Retrieval"
+  },
+  {
+    "start": 151.89,
+    "end": 164.9,
+    "text": "RAG Erik Cambria Knowledge Base Language Model Tourist Attractions Find: \"Tell me about tou St spos in Paris\" Tourist Spots in Paris Eiffel Tower Relevant Documents must-see symbol Eiffel Tower of Paris Louvre Museum Home t0 the Mona Lisa; Louvre Museum Notre-Dame Cathedral Famous for its athees: Generate Thise are some top Notre-Dame Cathedral Answer tourist spots In Panis t0 explorel Retrieve Relevant Info Generate Answer Retrieve Documents Generate Answer"
+  },
+  {
+    "start": 164.9,
+    "end": 171.5,
+    "text": "IR Timeline Erik Cambria 1990s 2000s 2010s 2020s RAG Keyword-based Statistical Semantic Retrieval Retrieva Retrieval"
+  },
+  {
+    "start": 171.5,
+    "end": 178.58,
+    "text": "AgentieRAG Erik Cambria Find: \"Create itinerary\" APis Databases Outline Plan landmarks 2: Museums Eiffel Tower 3; River cruise Seine cruise Autonomously Execute Tasks Sene anuseam toplibenois: Generate Detailed Answer day Results Top Day Day Use Tools nvel Resources"
+  },
+  {
+    "start": 178.58,
+    "end": 197.0,
+    "text": "Representing documents Erik Cambria There are 3 main kinds of text data representation: One-hot encoding encodes word presence Boolean (Yes vs No) Bag-of-words model encodes word frequency similar to one-hot encoding but also considers word count Word embeddings encodes word context similar to tf-idf but also considers contextual information"
+  },
+  {
+    "start": 197.0,
+    "end": 200.33,
+    "text": "Understanding Retrieval-Augmented Generation Erik Cambria Lecture 1 Boolean Retrieval"
+  },
+  {
+    "start": 200.33,
+    "end": 246.98,
+    "text": "One-hot encoding Erik Cambria Which plays of Shakespeare contain the words Brutus AND Caesar but NOT Calpurnia? One could grep all of Shakespeare's plays for Brutus and Caesar; then strip out lines containing Calpurnia? Why is that not the answer?"
+  },
+  {
+    "start": 246.98,
+    "end": 294.96,
+    "text": "One-hot encoding Erik Cambria Antony and Cleopatra Julius Caesar The Tempest Hamlet Othello Macbeth Antony Brutus Caesar Calpurnia Cleopatra mercy worser Brutus AND Caesar if play contains word, BUT NOT Calpurnia 0 otherwise"
+  },
+  {
+    "start": 294.96,
+    "end": 437.3,
+    "text": "Term-document incidence So we have a 0/1 vector for each term Erik Cambria To answer query: bitwise AND for vectors Brutus, Caesar and Calpurnia (complemented) 110100 AND 110111 AND 101111 = 100100 Antony and Cleopatra Julius Caesar The Tempest Hamlet Othello Macbeth Antony Brutus Caesar Calpurnia Cleopatra mercy worser"
+  },
+  {
+    "start": 437.3,
+    "end": 482.15,
+    "text": "Answers to query Erik Cambria Antony and Cleopatra, Act Ill, Scene ii Agrippa [Aside to DOMITIUS ENOBARBUS]: Why; Enobarbus, When Antony found Julius Caesar dead, He cried almost to roaring; and he wept When at Philippi he found Brutus slain Hamlet, Act IIl, Scene ii Lord Polonius: | did enact Julius Caesar was killed i' the Capitol; Brutus killed me"
+  },
+  {
+    "start": 482.15,
+    "end": 490.36,
+    "text": "Bigger collections Erik Cambria Consider N = 1 million documents, each with about 1000 words 6 bytes/word including spaces/punctuation 6GB of data in the documents there are M = S00K distinct terms among these Avg Say"
+  },
+  {
+    "start": 490.36,
+    "end": 564.83,
+    "text": "Build the matrix Erik Cambria But it has no more than one billion 1s Antony and Cleopatra Julius Caesar The Tempest Hamlet Othello Macbeth Antony Brutus Caesar Calpurnia Cleopatra mercy worser"
+  },
+  {
+    "start": 564.83,
+    "end": 630.96,
+    "text": "Inverted index Erik Cambria For each term t, we must store a list of all documents that contain t Identify each by a docID, a document serial number Can we used fixed-size arrays for this? Brutus 11131 45 173 Caesar 4 | 5 | 6 16 57 Calpurnia 31 54 /101/ What happens if the word Caesar is added to document 14?"
+  },
+  {
+    "start": 630.96,
+    "end": 651.52,
+    "text": "Inverted index Erik Cambria We need variable-size postings lists On disk, a continuous run of postings is normal and best In memory; can use linked lists or variable length arrays Some tradeoffs in size/ease of insertion Brutus 11/31 45 173 Caesar 2 | 4 | 5 | 6 16 57 Calpurnia 31 54 /101/"
+  },
+  {
+    "start": 651.52,
+    "end": 720.99,
+    "text": "Inverted index construction Documents to Erik Cambria Friends, Romans, countrymen. be indexed Tokenizer Token stream Friends Romans Countrymen Linguistic modules Modified tokens friend roman countryman Indexer friend Inverted index roman countryman 13 16"
+  },
+  {
+    "start": 720.99,
+    "end": 751.88,
+    "text": "Indexer steps: Token sequence Term docID Erik Cambria Sequence of did enacl (Modified token, Document ID) pairs cliesar was killed the capitol bnulus Doc 1 Doc 2 did enact Julius So let it be with caesar Caesar was killed Caesar. The noble noble the Capitol; Brutus hath told you nath Brutus killed me. Caesar was ambitious told you caesar was ambitious"
+  },
+  {
+    "start": 751.88,
+    "end": 768.57,
+    "text": "Indexer steps: Sort lerm docID Term docID Erik Cambria ambilious Sort by terms did enact prutus julius brutus And then doclD caesar capitol caesar was caesar killed caesar did the enact capitol Core indexing step killed me julius killed killed Mth caesar me Ihe noble noble brulus (ne hain told told you you caesar was was was ambitious"
+  },
+  {
+    "start": 768.57,
+    "end": 827.43,
+    "text": "Indexer steps: Postings term doc. postings lists Erik Cambria Multiple term entries Term docID ambitious ambilious in a single document brulus brutus are merged prulus capitol capitoi caesar Split into Dictionary caesar Caesar did and Postings did enact enact hath hath Doc: frequency (DF) information is added julius julius Killed killed killed let me noble me noble the the told the you told Was was you Was with freq:"
+  },
+  {
+    "start": 827.43,
+    "end": 845.58,
+    "text": "What is stored in the index? term doc. postings lists ambitious Erik Cambria Lists of brutus docIDs capitol caesar did enact Terms hath and counts julius killed let me the told you was with Pointers freq: noble"
+  },
+  {
+    "start": 845.58,
+    "end": 862.33,
+    "text": "The index we just built Erik Cambria How do we process a query? Later what kinds of queries can we process? Review: Process with incidence matrix So we have a 0/1 vector for each term To answer query: take the vectors for Brutus, Caesar and Calpurnia (complemented) bitwise AND 110100 AND 110111 AND 101111 100100"
+  },
+  {
+    "start": 862.33,
+    "end": 874.34,
+    "text": "Query processing: AND Erik Cambria Consider processing the query: Brutus AND Caesar Locate Brutus in the Dictionary Retrieve its postings Locate Caesar in the Dictionary Retrieve its postings \"Merge' the two postings 16 32 64 128 Brutus 13 21 34 Caesar"
+  },
+  {
+    "start": 874.34,
+    "end": 905.77,
+    "text": "The merge Erik Cambria Walk through the two postings simultaneously; in time linear in the total number of postings entries 16 32 64 128 Brutus 13 21 34 Caesar"
+  },
+  {
+    "start": 905.77,
+    "end": 950.77,
+    "text": "Boolean query: Exact match Erik Cambria"
+  },
+  {
+    "start": 950.77,
+    "end": 957.49,
+    "text": "Boolean query: Exact match Erik Cambria The Boolean retrieval model is being able to ask a query that is a Boolean expression: Boolean Queries are queries using AND, OR and NOT to join query terms Views document as a set of words Is precise: document matches condition or not Perhaps the simplest model to build an IR system on Primary commercial retrieval tool for 3 decades Many search systems you still use are Boolean: Email, library catalog, Mac OS Spotlight each"
+  },
+  {
+    "start": 957.49,
+    "end": 979.31,
+    "text": "Merging Erik Cambiia What about an arbitrary Boolean formula? (Brutus OR Caesar) AND NOT(Antony OR Cleopatra) Can we always merge in \"linear\" time? Linear in what? Can we do better?"
+  },
+  {
+    "start": 979.31,
+    "end": 1048.11,
+    "text": "Query optimization What is the best order for query processing? Erik Cambria Consider a query that is an AND of n terms For each of the n terms, its postings, then AND them together Brutus 4 |11/31 Caesar 5 | 6 16 31 57 Calpurnia 31 54 /101/ Query: Brutus AND Calpurnia AND Caesar get"
+  },
+  {
+    "start": 1048.11,
+    "end": 1071.74,
+    "text": "Query optimization example Erik Cambria Process in order of increasing start with smallest set, then keep cutting further This is why we kept document in dictionary Brutus 11/31 45 |173 Caesar 5 | 6 16 31 57 Calpurnia 31 54 /101 Thus, execute the query as (Calpurnia AND Brutus) AND Caesar freq: freq"
+  },
+  {
+    "start": 1071.74,
+    "end": 1106.31,
+    "text": "More general optimization Erik Cambria e.g , (tangerine OR trees) AND (marmalade OR skies) AND (kaleidoscope OR eyes) Get doc freqs for all terms Estimate the size of each OR by the sum of its doc freqs (conservative) Process in increasing order of OR sizes"
+  },
+  {
+    "start": 1106.31,
+    "end": 1113.38,
+    "text": "Phrase queries Erikcambria"
+  },
+  {
+    "start": 1113.38,
+    "end": 1133.6,
+    "text": "Phrase queries Erik Cambria Want to be able to answer queries such as \"stanford university\" as a phrase Thus the sentence \"| went to university at Stanford\" is not a match The concept of phrase queries has proven easily understood by users; one of the few \"advanced search\" ideas that works Similar to concept extraction (Lecture 4 of NLU course)"
+  },
+  {
+    "start": 1133.6,
+    "end": 1157.76,
+    "text": "A first attempt: Biword indexes Erik Cambria Index every consecutive of terms in the text as a phrase For example the text \"Friends, Romans, Countrymen would generate the biwords friends romans romans countrymen Each of these biwords is now a dictionary term Two-word phrase query-processing is now immediate pair"
+  },
+  {
+    "start": 1157.76,
+    "end": 1218.28,
+    "text": "Longer phrase queries Erik Cambria stanford university palo alto can be broken into the Boolean query on biwords: stanford university AND university AND alto How to know which one is a significative biword? Problems with overlapping biwords \"She may miss world tour\" => miss world or world tour ? Index blowup due to bigger dictionary Infeasible for more than biwords, big even for them palo palo"
+  },
+  {
+    "start": 1218.28,
+    "end": 1274.27,
+    "text": "Solution 2: Positional indexes Erik Cambria In the postings, store, for each term, the position(s) in which tokens of it appear: <term, number of docs containing term; docl: position1, position2 doc2: position1, position2 etc > angels: 2: (36,174,252,651 4: (12,22,102,432) = 7: (17) ; fools: 2: (1,17,74,222); 4: 8,78,108,4581 7: (3,13,23,193 fear: 2: (87,704,722,901); 4: (13,43,113,433) 7: (18,328,528) ; in: 2: (3,37,76,444,851) = 4: (10,20,110,470,500); 7: (5,15,25,195) rush: 2: (2,66,194,321,702 4: (9,69,149,429,569); 7: (4,14,404) ; to: 2: (47,86,234,9991); 4: 7: (199,319,599,709} ; tread: 2: (57,94,333) 4: (15,35,155 7: (20,320) where: 2: (67,124,393,1001); 4: (11,41,101,421,431); 7: (16,36,736)"
+  },
+  {
+    "start": 1274.27,
+    "end": 1291.69,
+    "text": "Processing a phrase query Erik Cambria Extract inverted index entries for each distinct term: Or, not Merge their doc:position lists to enumerate all positions with to be or not to be\" to: 2.1,17,74,222,551; 4.8,16,190,429,433; 7:13,23,191; be: 1:17,19; 4.17,191,291,430,434; 5.14,19,101; be, to,"
+  },
+  {
+    "start": 1291.69,
+    "end": 1300.7,
+    "text": "Positional index size Erik Cambria positional index expands postings storage substantially Even though indices can be compressed Nevertheless, a positional index is now standardly used because of the power and usefulness of phrase and proximity queries whether used explicitly or implicitly in a ranking retrieval system In the case of a static collection, we have to do it only once anyway"
+  },
+  {
+    "start": 1300.7,
+    "end": 1306.71,
+    "text": "Solution 2: Positional indexes Erik Cambria In the postings, store, for each term, the position(s) in which tokens of it appear: <term, number of docs containing term; docl: position1, position2 doc2: position1, position2 etc > angels: 2: (36,174,252,651 7: (17) ; fools: 2: (1,17,74,222); 4: 8,78,108,4581 7: (3,13,23,193 fear: 2: (87,704,722,901); 4: (13,43,113,433} 7: (18,328,528}; in: 2: (3,37,76,444,851) = 4 (9,69,149,429,569}; 7: (4,14,404); to: 2: (47,86,234,9991); 4: 14,24,774,944} 7: (199,319,599,709} ; tread: 2: (57,94,3331 4: (15,35,155 7: (20,320) where: 2: (67,124,393,1001); 4: (11,41,101,421,431); 7: (16,36,736)"
+  },
+  {
+    "start": 1306.71,
+    "end": 1326.12,
+    "text": "Combination schemes These two approaches (biword index, positional Erik Cambria index) can be profitably combined For particular phrases (\"Michael Jackson\", \"Britney Spears\") it is inefficient to keep on merging positional postings lists phrases like \"The Who\" Williams et al. (2004) evaluate a more sophisticated mixed indexing scheme A typical web query mixture was executed in % of the time of just a positional index It required 26% more space than having a positional index alone for using"
+  },
+  {
+    "start": 1326.12,
+    "end": 1369.23,
+    "text": "Vocabulary vs. collection size Erik Cambria Heaps' law: M = kTb M is the size of the vocabulary, T is the number of tokens in the collection Typical values: 30 < k < 100 and b ~ 0.5 In a log-log plot of vocabulary size M vs. T, Heaps' law predicts a line with slope about Yz It is the simplest possible relationship between the two in log-log space An empirical finding (\"empirical law\")"
+  },
+  {
+    "start": 1369.23,
+    "end": 1388.32,
+    "text": "Vocabulary vs. collection size Erik Cambria X-axis: text size Y-axis: number of distinct vocabulary elements present in the text"
+  },
+  {
+    "start": 1388.32,
+    "end": 1399.26,
+    "text": "Zipf's law Erik Cambria Heaps' law gives the vocabulary size in collections We also study the relative frequencies of terms In natural language, there are a few very frequent terms and very many very rare terms Zipf's law: The ith most frequent term has frequency proportional to 1/i cf; & 1/i = K/i where K is a normalizing constant cf; is collection frequency: the number of occurrences of the term t; in the collection"
+  },
+  {
+    "start": 1399.26,
+    "end": 1429.83,
+    "text": "Zipf's law Erik Cambria 16000 14000 12000 10000 8000 6000 4000 2000 3383"
+  },
+  {
+    "start": 1429.83,
+    "end": 1448.51,
+    "text": "Zipf consequences Erik Cambria Zipf's law states that given a natural language corpus, the frequency of any word is inversely proportional to its rank in the frequency table Thus the most frequent word will occur approximately twice as often as the second most frequent word, three times as often as the third most frequent word, etc: Useful to decide which stopwords to remove"
+  },
+  {
+    "start": 1448.51,
+    "end": 1466.06,
+    "text": "Skip pointers Erik Cambria Walk through the two postings simultaneously, in time linear in the total number of postings entries 41 48 64 128 Brutus 17 21 31 Caesar If the list lengths are m and n, the merge takes O(m+n) operations"
+  },
+  {
+    "start": 1466.06,
+    "end": 1498.7,
+    "text": "Skip pointers 128 Erik Cambria 41 48 64 128 31 17 31 Suppose we've stepped through the lists until we process 8 on each list. We match it and advance. We then have 41 and 11 on the lower: 11 is smaller But the skip successor of 11 on the lower list is 31, SO we can skip ahead past the intervening postings"
+  },
+  {
+    "start": 1498.7,
+    "end": 1512.11,
+    "text": "Compression Erik Cambria Use less disk space Saves a little money Keep more stuff in memory Increases speed Increase speed of data transfer from disk to memory [read compressed data decompress] is faster than [read uncompressed data] Premise: Decompression algorithms are fast"
+  },
+  {
+    "start": 1512.11,
+    "end": 1518.78,
+    "text": "Compression Erik Cambria On the dictionary Make it small enough to keep in main memory Make it so small that you can keep some postings lists in main memory too On the postings files Reduce disk space needed Decrease time needed to read postings lists from disk Large search engines keep a significant part of the postings in memory Compression lets you keep more in memory"
+  },
+  {
+    "start": 1518.78,
+    "end": 1543.28,
+    "text": "Index parameters Vs. what we index Erik Cambria word types non-positional positional (terms) postings postings non-positional positional size of dictionary index index Size (K) Size (K) Size (K) Unfiltered 484 109,971 197,879 No numbers 474 100,680 179,158 Case folding 392 96,969 179,158 30 stopwords 391 83,390 121,858 150 stopwords 391 67,002 94,517 stemming 322 63,812 94,517"
+  },
+  {
+    "start": 1543.28,
+    "end": 1554.15,
+    "text": "Compression: dictionary Erik Cambria Search begins with the dictionary We want to keep it in memory Memory footprint competition with other applications Memory footprint: amount of memory a program uses Embedded/mobile devices may have very little memory Even if the dictionary isn't in memory, we want it to be small for a fast search startup time"
+  },
+  {
+    "start": 1554.15,
+    "end": 1562.89,
+    "text": "Compression: dictionary Array of fixed-width entries Erik Cambria ~400,000 terms; 28 bytes/term = 11.2 MB Terms Postings 656,265 aachen 65 zulu 221 Dictionary search 20 bytes bytes each structure Freq: ptr:"
+  },
+  {
+    "start": 1562.89,
+    "end": 1575.84,
+    "text": "Dictionary as a string Erik Cambria Store dictionary as a (long) string of characters: Pointer to next word shows end of current word Hope to save up to 60% of dictionary space systilesyzygeticsyzygialsyzygyszaibelyiteszczecinszomo Freq: Postings ptr. Term ptr. Total length 33 400K x 8B 3.2MB 29 44 Pointers resolve 3.2M 126 positions: log23.2M 22bits 3bytes string"
+  },
+  {
+    "start": 1575.84,
+    "end": 1593.53,
+    "text": "Blocking Store pointers to every kth term string Erik Cambria Need to store term lengths (1 extra byte) Jsystile9syzygetic8syzygialbsyzygy] IszaibelyiteSszczecin9szomo _ Postings ptr. Term ptr. 33 29 Save 9 bytes Lose 4 bytes on 44 on 3 term lengths. 126 pointers. Freq:"
+  },
+  {
+    "start": 1593.53,
+    "end": 1616.21,
+    "text": "Front coding Sorted words commonly have common prefix Erik Cambria store differences only (see wildcard queries later) 8automata8automategautomaticlOautomation long"
+  },
+  {
+    "start": 1616.21,
+    "end": 1623.82,
+    "text": "RCV1 dictionary compression Erik Cambria Size in Technique MB Fixed width 11.2 Dictionary as string with pointers to every term 7.6 Blocking 7.1 Blocking front coding 5.9"
+  },
+  {
+    "start": 1623.82,
+    "end": 1659.06,
+    "text": "Compression: postings Erik Cambria We store the list of docs containing a term in increasing order of docID computer: 33,47,[54,159,202 Consequence: itSuffices to store gaps. 33,47,154[7202 Hope: most gaps can be encoded/stored with far fewer than 20 bits"
+  },
+  {
+    "start": 1659.06,
+    "end": 1679.51,
+    "text": "Compression: postings Erik Cambria encoding postings list THE docIDs 283042 283043 283044 283045 gaps COMPUTER docIDs 283047 283154 283159 283202 gaps 107 43 ARACHNOCENTRIC docIDs 252000 500100 252000 248100 gaps"
+  }
+]

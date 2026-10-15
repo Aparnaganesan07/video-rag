@@ -1,0 +1,486 @@
+{
+  "video_id": "JChPi0CRnDY",
+  "language": "en",
+  "segments": [
+    {
+      "start": 3.63,
+      "end": 5.63,
+      "text": "It's nice to be able to change."
+    },
+    {
+      "start": 5.63,
+      "end": 9.63,
+      "text": "Over the next few videos, we're going to be talking about query translation."
+    },
+    {
+      "start": 9.63,
+      "end": 15.63,
+      "text": "And in this first video, we're going to cover the topic of multi query."
+    },
+    {
+      "start": 15.63,
+      "end": 22.63,
+      "text": "So, query translation sits kind of at the first stage of an advanced rag pipeline."
+    },
+    {
+      "start": 22.63,
+      "end": 27.63,
+      "text": "And the goal of query translation is really to take an input user question"
+    },
+    {
+      "start": 27.63,
+      "end": 32.63,
+      "text": "and to translate it in some way in order to improve retrieval."
+    },
+    {
+      "start": 32.63,
+      "end": 37.63,
+      "text": "So, the problem statement is pretty intuitive."
+    },
+    {
+      "start": 37.63,
+      "end": 40.63,
+      "text": "User queries can be ambiguous."
+    },
+    {
+      "start": 40.63,
+      "end": 48.63,
+      "text": "And if the query is poorly written, because we're typically doing some kind of semantics similarity search between the query and our documents,"
+    },
+    {
+      "start": 48.63,
+      "end": 56.63,
+      "text": "if the query is poorly written or real posed, we won't retrieve the proper documents from our index."
+    },
+    {
+      "start": 56.63,
+      "end": 60.63,
+      "text": "So, there's a few approaches to attack this problem."
+    },
+    {
+      "start": 60.63,
+      "end": 63.63,
+      "text": "And you can kind of group them in a few different ways."
+    },
+    {
+      "start": 63.63,
+      "end": 65.63,
+      "text": "So, here's one way I like to think about it."
+    },
+    {
+      "start": 65.63,
+      "end": 68.63,
+      "text": "A few approaches has evolved query rewriting."
+    },
+    {
+      "start": 68.63,
+      "end": 73.63,
+      "text": "So, taking a query and reframing it, like writing it from a different perspective,"
+    },
+    {
+      "start": 73.63,
+      "end": 79.63,
+      "text": "and that's what we're going to talk about a little bit here in depth using approaches like multi query"
+    },
+    {
+      "start": 79.63,
+      "end": 82.63,
+      "text": "or rag views, which we'll talk about in the next video."
+    },
+    {
+      "start": 82.63,
+      "end": 86.63,
+      "text": "You can also do things like take a question and break it down to make it less abstract,"
+    },
+    {
+      "start": 86.63,
+      "end": 90.63,
+      "text": "like into sub questions, and there's a bunch of interesting papers focused on that,"
+    },
+    {
+      "start": 90.63,
+      "end": 93.63,
+      "text": "like at least to most from Google."
+    },
+    {
+      "start": 93.63,
+      "end": 97.63,
+      "text": "You can also take the opposite approach of take a question and make it more abstract."
+    },
+    {
+      "start": 97.63,
+      "end": 102.63,
+      "text": "And there's an approach we're going to talk about later in a future video called Step by Prompting,"
+    },
+    {
+      "start": 102.63,
+      "end": 108.63,
+      "text": "it focuses on kind of higher level question from the input."
+    },
+    {
+      "start": 108.63,
+      "end": 112.63,
+      "text": "So, the intuition, though, for this multi query approach,"
+    },
+    {
+      "start": 112.63,
+      "end": 117.63,
+      "text": "so we're taking a question and we're going to break it down into a few differently worded questions"
+    },
+    {
+      "start": 117.63,
+      "end": 119.63,
+      "text": "from different perspectives."
+    },
+    {
+      "start": 119.63,
+      "end": 127.63,
+      "text": "And the intuition here is simply that it is possible that the way a question is initially worded,"
+    },
+    {
+      "start": 127.63,
+      "end": 134.63,
+      "text": "once embedded, it is not well aligned or in close proximity in this high-dimensional embedding space"
+    },
+    {
+      "start": 134.63,
+      "end": 137.63,
+      "text": "to a document we want to retrieve that's actually related."
+    },
+    {
+      "start": 138.63,
+      "end": 142.63,
+      "text": "So, the thinking is that by kind of rewriting it in a few different ways,"
+    },
+    {
+      "start": 142.63,
+      "end": 147.63,
+      "text": "you actually increase the likelihood of actually retrieving the document that you really want to."
+    },
+    {
+      "start": 147.63,
+      "end": 152.63,
+      "text": "Because of nuances in the way that documents and questions are embedded,"
+    },
+    {
+      "start": 152.63,
+      "end": 157.63,
+      "text": "this kind of more shotgun approach of taking a question and fanning it out into a few different perspectives"
+    },
+    {
+      "start": 157.63,
+      "end": 160.63,
+      "text": "may improve and increase the reliability of retrieval."
+    },
+    {
+      "start": 160.63,
+      "end": 163.63,
+      "text": "That's like the intuition, really."
+    },
+    {
+      "start": 163.63,
+      "end": 169.63,
+      "text": "And of course, we can combine this with retrieval so we can take our kind of found out questions,"
+    },
+    {
+      "start": 169.63,
+      "end": 174.63,
+      "text": "do retrieval on each one, and combine them in some way, and perform bragg."
+    },
+    {
+      "start": 174.63,
+      "end": 179.63,
+      "text": "So, that's kind of the overview and now let's go over to our code."
+    },
+    {
+      "start": 179.63,
+      "end": 184.63,
+      "text": "So, this is a notebook and we're going to share all this."
+    },
+    {
+      "start": 184.63,
+      "end": 187.63,
+      "text": "We're just installing a few packages."
+    },
+    {
+      "start": 187.63,
+      "end": 191.63,
+      "text": "We're setting a Lancet API keys, which we'll see why that's quite useful here shortly."
+    },
+    {
+      "start": 191.63,
+      "end": 193.63,
+      "text": "There's our diagram."
+    },
+    {
+      "start": 193.63,
+      "end": 196.63,
+      "text": "Now, first, I'm going to index this blog post on agents."
+    },
+    {
+      "start": 196.63,
+      "end": 198.63,
+      "text": "I'm going to split it."
+    },
+    {
+      "start": 198.63,
+      "end": 200.63,
+      "text": "Well, I'm going to load it."
+    },
+    {
+      "start": 200.63,
+      "end": 204.63,
+      "text": "I'm going to split it, and then I'm going to index it in Chroma locally."
+    },
+    {
+      "start": 204.63,
+      "end": 208.63,
+      "text": "So, as a vector story, I've done this previously, so now I have my index defined."
+    },
+    {
+      "start": 208.63,
+      "end": 212.63,
+      "text": "So, here's where I'm defining my prompt for multi query,"
+    },
+    {
+      "start": 212.63,
+      "end": 216.63,
+      "text": "which is urinate, your assistant, your task is to basically reframe this question"
+    },
+    {
+      "start": 216.63,
+      "end": 219.63,
+      "text": "into a few different subquestions."
+    },
+    {
+      "start": 219.63,
+      "end": 224.63,
+      "text": "So, there's our prompt right here."
+    },
+    {
+      "start": 224.63,
+      "end": 230.63,
+      "text": "We'll pass that to an LLM, parse it into a string, and then split the string by new lines,"
+    },
+    {
+      "start": 230.63,
+      "end": 233.63,
+      "text": "and so we'll get a list of questions out of this chain."
+    },
+    {
+      "start": 233.63,
+      "end": 235.63,
+      "text": "That's really all we're doing here."
+    },
+    {
+      "start": 235.63,
+      "end": 238.63,
+      "text": "Now, all we're doing is here's a sample input question."
+    },
+    {
+      "start": 238.63,
+      "end": 241.63,
+      "text": "There's our generate queries, chain, which we'll find."
+    },
+    {
+      "start": 241.63,
+      "end": 247.63,
+      "text": "We're going to take that list, and then simply apply each question to a retriever."
+    },
+    {
+      "start": 247.63,
+      "end": 249.63,
+      "text": "So, we'll do retrieval per question."
+    },
+    {
+      "start": 249.63,
+      "end": 255.63,
+      "text": "And this little function here is just going to take the unique union documents across all those retrievals."
+    },
+    {
+      "start": 255.63,
+      "end": 257.63,
+      "text": "So, let's run this and see what happens."
+    },
+    {
+      "start": 257.63,
+      "end": 263.63,
+      "text": "So, we're going to run this, and we're going to get some set of questions or documents back."
+    },
+    {
+      "start": 263.63,
+      "end": 265.63,
+      "text": "So, let's go to lines with now."
+    },
+    {
+      "start": 265.63,
+      "end": 268.63,
+      "text": "We can actually see what happened under the hood."
+    },
+    {
+      "start": 268.63,
+      "end": 270.63,
+      "text": "So, here's the key point."
+    },
+    {
+      "start": 271.63,
+      "end": 277.63,
+      "text": "We ran our initial chain to generate a set of re-framed questions from our input."
+    },
+    {
+      "start": 277.63,
+      "end": 282.63,
+      "text": "And here is that prompt, and here's that set of questions that we generated."
+    },
+    {
+      "start": 282.63,
+      "end": 286.63,
+      "text": "Now, what happened is for every one of those questions we did an independent retrieval."
+    },
+    {
+      "start": 286.63,
+      "end": 288.63,
+      "text": "That's what we're showing here."
+    },
+    {
+      "start": 288.63,
+      "end": 290.63,
+      "text": "So, that's kind of the first step, which is great."
+    },
+    {
+      "start": 290.63,
+      "end": 294.63,
+      "text": "Now, I can go back to the notebook, and we can show this working end to end."
+    },
+    {
+      "start": 295.63,
+      "end": 297.63,
+      "text": "So, now we're going to take that retrieval chain."
+    },
+    {
+      "start": 297.63,
+      "end": 300.63,
+      "text": "We'll pass it into context of our final rack prompt."
+    },
+    {
+      "start": 300.63,
+      "end": 302.63,
+      "text": "We'll also pass through the question."
+    },
+    {
+      "start": 302.63,
+      "end": 304.63,
+      "text": "We'll pass that to our rack prompt here."
+    },
+    {
+      "start": 304.63,
+      "end": 306.63,
+      "text": "Pass it to an LM."
+    },
+    {
+      "start": 306.63,
+      "end": 308.63,
+      "text": "And then, parse the output."
+    },
+    {
+      "start": 308.63,
+      "end": 310.63,
+      "text": "Now, let's see how that works."
+    },
+    {
+      "start": 310.63,
+      "end": 312.63,
+      "text": "So, again, that's okay, there it is."
+    },
+    {
+      "start": 312.63,
+      "end": 316.63,
+      "text": "So, let's actually go into length and see what happened under the hood."
+    },
+    {
+      "start": 316.63,
+      "end": 318.63,
+      "text": "So, this is our final chain. This is great."
+    },
+    {
+      "start": 318.63,
+      "end": 320.63,
+      "text": "We took our input question."
+    },
+    {
+      "start": 320.63,
+      "end": 324.63,
+      "text": "We broke it down to these five rephrase questions."
+    },
+    {
+      "start": 324.63,
+      "end": 326.63,
+      "text": "For every one of those, we did a retrieval."
+    },
+    {
+      "start": 326.63,
+      "end": 327.63,
+      "text": "That's all great."
+    },
+    {
+      "start": 327.63,
+      "end": 332.63,
+      "text": "We then took the unique union of documents, and you can see in our final LLM prompt,"
+    },
+    {
+      "start": 332.63,
+      "end": 335.63,
+      "text": "answer the following question based on the context."
+    },
+    {
+      "start": 335.63,
+      "end": 343.63,
+      "text": "This is the final set of unique documents that we retrieved from all of our sub-questions."
+    },
+    {
+      "start": 343.63,
+      "end": 345.63,
+      "text": "Here's our initial question."
+    },
+    {
+      "start": 345.63,
+      "end": 346.63,
+      "text": "There's our answer."
+    },
+    {
+      "start": 346.63,
+      "end": 349.63,
+      "text": "So, that kind of shows you, I can set this up really easily."
+    },
+    {
+      "start": 349.63,
+      "end": 352.63,
+      "text": "I can use length to kind of investigate what's going on."
+    },
+    {
+      "start": 352.63,
+      "end": 357.63,
+      "text": "And in particular, use length to investigate those intermediate questions that you generate"
+    },
+    {
+      "start": 357.63,
+      "end": 360.63,
+      "text": "in that kind of question generation phase."
+    },
+    {
+      "start": 360.63,
+      "end": 364.63,
+      "text": "And in the future talks, we're going to go through some of these other methods"
+    },
+    {
+      "start": 364.63,
+      "end": 366.63,
+      "text": "we kind of introduced the start of this one."
+    },
+    {
+      "start": 366.63,
+      "end": 368.63,
+      "text": "Thank you."
+    }
+  ]
+}

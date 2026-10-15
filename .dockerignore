@@ -1,0 +1,10 @@
+# Keep the image small and secrets out of it.
+.venv/
+data/
+.env
+.git/
+.claude/
+__pycache__/
+.pytest_cache/
+docs/*.gif
+docs/*.mp4

@@ -6,11 +6,21 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()  # reads .env in the project root (if present)
+
+
+def _env_flag(name: str, default: bool) -> bool:
+    """Read a true/false setting from the environment, e.g. USE_RERANKER=false."""
+    value = os.getenv(name)
+    return default if value is None else value.strip().lower() in ("1", "true", "yes", "on")
+
+
+# Hugging Face Spaces sets SPACE_ID; we use it to show a "hosted demo" notice in the UI.
+IS_HOSTED = bool(os.getenv("SPACE_ID"))
 os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")  # harmless Windows cache notice
 
 # --- Paths ---
 ROOT_DIR = Path(__file__).resolve().parent.parent
-DATA_DIR = ROOT_DIR / "data"
+DATA_DIR = Path(os.getenv("DATA_DIR", ROOT_DIR / "data"))  # override to test with a clean folder
 AUDIO_DIR = DATA_DIR / "audio"            # downloaded audio files
 TRANSCRIPT_DIR = DATA_DIR / "transcripts" # cached Whisper output (JSON)
 CHROMA_DIR = DATA_DIR / "chroma"          # persistent vector DB
@@ -23,7 +33,7 @@ WHISPER_DEVICE = "cpu"
 WHISPER_COMPUTE_TYPE = "int8"  # quantized weights: ~4x faster on CPU, tiny accuracy loss
 
 # --- Slides: keyframes + OCR ---
-ENABLE_SLIDES = True          # read on-screen text when indexing (slower; --no-slides to skip)
+ENABLE_SLIDES = _env_flag("ENABLE_SLIDES", True)  # read on-screen text when indexing (slower)
 VIDEO_MAX_HEIGHT = 720        # 720p is enough for slide text; higher only costs time
 SCENE_THRESHOLD = 20.0        # PySceneDetect ContentDetector (brightness + edges): lower = more sensitive
 MIN_SCENE_SECONDS = 2.0       # ignore flickers shorter than this
@@ -47,8 +57,8 @@ COLLECTION_NAME = "video_chunks"
 # --- Search ---
 TOP_K = 3          # results shown by `cli search`
 ANSWER_TOP_K = 5   # chunks given to the LLM as context
-USE_HYBRID = True        # vector + BM25 keyword search, fused with RRF
-USE_RERANKER = True      # rescore candidates with a cross-encoder
+USE_HYBRID = _env_flag("USE_HYBRID", True)      # vector + BM25 keyword search, fused with RRF
+USE_RERANKER = _env_flag("USE_RERANKER", True)  # rescore candidates with a cross-encoder
 CANDIDATES_K = 20        # how many results each retriever returns before fusion/reranking
 RRF_K = 60               # Reciprocal Rank Fusion constant (60 is the standard value from the paper)
 RERANKER_MODEL = os.getenv("RERANKER_MODEL", "BAAI/bge-reranker-base")

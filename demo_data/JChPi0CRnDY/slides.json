@@ -1,0 +1,107 @@
+[
+  {
+    "start": 0.0,
+    "end": 15.53,
+    "text": "Homo RAG romscrtch Lang Smith RAG from scratch: Query Translation (Multi-Query) Slideshow Share Edit Insert Format Slide Arrange Tools Extensions Help Background Layout Theme Transition Rec RAG from scratch: Query Translation (Multi-Query) Lance Martin Software Engineer; LangChain @RLanceMartin"
+  },
+  {
+    "start": 15.53,
+    "end": 33.53,
+    "text": "LangChain Query Translation Query Construction Query Translation Generation Fine-tuning 0:16 Rout-9"
+  },
+  {
+    "start": 33.53,
+    "end": 56.47,
+    "text": "LangChain Problem statement anton @abacaj Semantic search on embeddings is hard to get right: Embedding long documents is a challenge: User queries are a challenge, if a user provides an ambiguous query they'Il get ambiguous matches LLMs just follow what was in the context and hallucinate answers as a result 11.06 AM . Apr 28,2023 113.7K Views 25 12 53 434 309 https IItwitter comlabacailstatus/16520115198639267862s-20 0:34"
+  },
+  {
+    "start": 56.47,
+    "end": 146.47,
+    "text": "LangChain General approaches to transform questions Step-back question (Step-back prompting) More abstraction Question Re-wrtten (RAG-Fusion Multi-Query) Less abstraction Sub-question (Least-to-Most) https Ilpvthon langchain com/docsImodulesldata connectiontretrieversIMultiQueryRetriever 0:57"
+  },
+  {
+    "start": 146.47,
+    "end": 175.67,
+    "text": "LangChain Intuition: Improve search Exbedding Exbedding Documents 2.27"
+  },
+  {
+    "start": 175.67,
+    "end": 177.8,
+    "text": "Homa Lang Smith -129 RAG from scratch: Query Translation (Multi-Query) Slideshow Share Edit View Insert Format Slide Afrange Tools Extensions Help Background Layout Theme Transition Rec Langchain Code walk-through 2;56 # 0"
+  },
+  {
+    "start": 177.8,
+    "end": 184.07,
+    "text": "RAG Irom scratch; Lang Smith 127.0.0.1.8888/notebooksfrag_from_scratch_parts jupyter rag_from_scratch_parts_5_to_9 Checkpoint: Edit Kernel Settings Help X 0 Code JupyterLab D Python = [ipykernel) Question Vectorstore 03 Vectorstore Docs: Index IMDEXING Load blog mport Langchain_co-munity loaders irport WebBaseLoader loader rgsedict ( class post-content\" \"post-title\" post-header\" ) 2:58 parsc"
+  },
+  {
+    "start": 184.07,
+    "end": 192.33,
+    "text": "Homn RAG Irom scratch; Qucty Tral RAG Irom scratch; Lang Smith 127.0.0.1.8888/notebooksfrag ~from_scratch_parts jupyter rag_from_scratch_parts_5_to_9 Last Checkpoint: Scttings Help Code JupyterLab C Pytnon Enviornment Packages pip install langchain_community tiktoken langchain-openai lanckhainhub chrozadb langchain (2) LangSmith https Ildocs smith langchain comf import LANGCHAIN_TRACING_V2 true LANGCHAIN_ENDPOINT - LANGCHAIN_API_KEY api-key? Part 5: Multi Query Docuents Vectorstore 3;04 # 0 02 Answer"
+  },
+  {
+    "start": 192.33,
+    "end": 232.4,
+    "text": "Hom RAG Irom scratch; Lang Smith 127.0.0.1.8888/notebooksjrag ~from_scratch_parts jupyter rag_from_scratch_parts_5_to_9 Last Checkpoint: Kerncl sctlinas Help Code JupyterLab C Python = (ipykernel) Index Load blog import Ds = langchain_ Louder web_Paths bs_kwargs-dict ( class post-content post-title\" post-header\") blog_docs loader . load( ) Split langchain.text_splitter import RecursivecharactertextSplitter text_splitter RecursiveCharactertextSplitter_ Liktoken_encoder( chunk_size= chunk_overlap=501 Hake splits splits text_splitter.split_documents(blog_docs) Index langchain_openai Lmport OpenAIE-beddings Chroma 3813 Fentsesplits edding-OpenAIEmbeddings ( ) )"
+  },
+  {
+    "start": 232.4,
+    "end": 264.6,
+    "text": "Lang Smith 127.0.0.1.8888/notebooksfrag ~from_scratch_parts jupyter rag_from_scratch_parts_5_to_9 Last Checkpoint: Scttings Help Code JupyterLab C Pytnon fipykernel) [2] : langchain.prompts irport ChatPromptTemplate Kulti Query: Different Perspectives te-plate AI language Todel assistant. generate five different versions 0f the given user question Fetrieve relevant documents vector database By generating multiple perspectives question _ goal help sinilarity Provide these alternative questions separated nealines Original question: {question}\"uw perspectives chatPromptTemplate cemplate(template) Trom langchain_ core outout parsers StroutputParser langchain openal 1mport ChatOpenAI generate_queries perspectives Stroutputparsert) (La-bda split (\"In\")) langchain.load inport get_unique_union documents docs Flatten List Lists_ each Docurent flattened dumps (doc) for sublist documents tor doc sublist] unique_docs return Loads (doc) for doc unique_docs[ LLM agents?\" get_unique union :question]) unique"
+  },
+  {
+    "start": 264.6,
+    "end": 266.8,
+    "text": "Hom RAG Irom scratch; Query Tra Lang Smith 88 rlm Details LangSmith RUN COUNT 88 rlm Edit Projects 290 Annotation Queues Traces LLM Calls Monitor Setup TOTAL TOKENS 663.393 S0.236904 0 Deployments Last days eq( run type , chain\" ) Columns MEDIAN TOKENS 407 Datasets Testing Name Inpul Start Timo Latoncy Dataset Annotatia ERROR RATE Hub RunnableSequence What task decompo _ 2/12/2024.4.14.34P_ STREAMING RunnableSequence What task decompo _- 2/12/2024.4.08.46 3445 LATENCY RunnableSequence What task decompo , 2012/2024.4.07.11 PM FirstTOKEN RunnableSequcnce What task dccompo;. 2/12/2024.4.06.30 2.292 What 2/12/2024.401.10 PM Filters RunnableSequence What task decompo _ 2/12/2024.3.58.22 Full-Text Search RunnableSequence What task decompo _ 2n12/2024.3.58.06 1549 Scarch _ RunnableSequence What task decompo , Metadata RunnablcSequencc What 2/12/2024.3.53,40 . revision_id 4825 Whal task decompo _ 2/12/2024.3.49.24 com revision_id task"
+  },
+  {
+    "start": 266.8,
+    "end": 270.73,
+    "text": "Hom Query Tra Lang Smith Add Dataset Sharo Annotate 88 Projec Trace Collapse Stats Most relevant 82 RunnableSequence Annot RunnableSequence SUCCESS Run Feedback Mctadata Deplo L74s Input ChatOpenAI L16s Datas Rctricvcr 0,17s question: What 15 task decomposition for LLM agents? Hub Retriever 0.27s YAML Retriever 0.23s Output Retriever DOCUMENTS H] Challenges# After going through key ideas and demos of building LLM-centered agents start t0 see Fig: 11. Illustration how HuggingGPT works Shen et al. 2023) The system comprises of sta . LLM Powered Autonomous Agents Date: June 23,2023 Estimated Reading Time: 31 min Author: Lilian Wen__. Fig: Overview of LLM-powered autonomous agent system Component One: Planning# complicated task _ One interesting observation is that while the LLM-based evaluation concluded that GPT- and ChemCrow per__ 4827 # 0 0.218 mage"
+  },
+  {
+    "start": 270.73,
+    "end": 283.8,
+    "text": "Hom Lang Smith smith: Playground Add Dataset Sharo Annotate Projec Trace Collapse Stats Most relevant ChatOpenAI Annot RunnableSequence succESS Run Feedback Metadata L74s Deplo Input ChatOpenAI Datas Rctricver 0,17s HUMAN Hub Retriever 0.27s You are an Al language model assistant Your task is to generate five different versions of the given user question t0 retrieve relevant documents from vector database. By generating multiple perspectives on the user question; your goal is to help Retriever 0.23s (he user overcome some of the limitations of the distance-based similarity search: Provide these alternative questions separated by newlines Original question: What is task decomposition for LLM agents? Output How do LLM agents perform task decomposition? Can you explain the concept of task decomposition in LLM agents? What are the methods used by LLM agents for task decomposition? How does task decomposition work in the context of LLM agents? What is the role of task decomposition in LLM agent's functioning? 4831 #0 0"
+  },
+  {
+    "start": 283.8,
+    "end": 291.4,
+    "text": "Lang Smith smith: Add Dataset Share Annotate 88 Projec Trace Collapse Stats Most relevant Retriever Annot RunnableSequence succeSS Run Feedback Mctadata L74s Deplo Input ChatOpenAI Datas Rctricvcr 0,17s query: How do LLM agents perform task decomposition? Hub Retriever 0.27s YAML Retriever 0.23s Output DOCUMENTS Fig: Overview of LLM-powered autonomous agent system Component One: Planning# complicated task__ Fig: 11. Illustration of how HuggingGPT works (Image source: Shen et al. 2023) The system comprises of One interesting observation is that while the LLM-based evaluation concluded that GPT-4 and ChemCrow per_ LLM Powered Autonomous Agents Date: June 23,2023 Estimated Reading Time: 31 min Author: Lilian Wen__. 4844 #0 0"
+  },
+  {
+    "start": 291.4,
+    "end": 308.0,
+    "text": "Lang Smith 127.0.0.1.8888/notebooksfrag ~from_scratch_parts jupyter rag_from_scratch_parts_5_to_9 Last Checkpoint: Sctlings Help Code JupyterLab C Pytnon fipykernel) StroutputParser() (Laebda split(\"In\")) 43] : Trom Louc loads documents: Unique Wnion 0f retricved docs Flatten List Lists_ conker string flattened_docs (doc) fol sublist documents for doc sublist] documents list(set ( flattened_docs) ) return [Loads (doc ) for doc 1n unique_docs] Retrieve question \"ahat i5 task decomposition LLM agents?\" retrieva chain queries get_ retrieval_chain_ Ien (docs ) /Users/rlm/-iniforge3/envs/rag-fro--scratch-env/lib/python3.ll/site-packages/ langchain_core/_api/beta_decorator.Py:86: LangChainBetanarning: The Tunction oads actively being worked on, the API cay change_ beta (3] : Trom operator Inport itengetter langchain_openai ChatOpenAl langchain_core irport RunnablePassthrough RAG te-plate Ansher the following question based on this context: 4852 Cach unique"
+  },
+  {
+    "start": 308.0,
+    "end": 313.53,
+    "text": "Lang Smith 127.0.0.1.8888/notebooksfrag ~from_scratch_parts jupyter rag_from_scratch_parts_5_to_9 Last Checkpoint: Markdown JupyterLab C Python = fipykernel) betal (3] : from operator import itengetter langchain openal import ChatOpenAI chain runnables Import RunnablePassthrough RAG tezplate Ansher the following question based this context: {context} Question: (question} prompt ChatProrptTesplate.fron_templateltemplate) final_rag_chain context' retrieval_chain qmestion\" itemgetter(\"question\") | pro-pt StroutputParser(| final_rag_chain. invoke( (\"question\":question} ) 0 ^ ` = Part 6: RAG-Fusion 5:08"
+  },
+  {
+    "start": 313.53,
+    "end": 318.8,
+    "text": "Homn RAG Irom scraich; Qucty Tral Lang Smith Add Dataset Share Annotate Projec Trace Collapse Stats Most relevant Retriever Annot Run Fcedback Metadata RunnableSequence succeSS Deplo Input ChatOpenAI Datas query: What task decomposition in LLM agent\" functioning? Hub Retriever 0.27s YAML Retriever 0.23s Output Retriever 0 21s DOCUMENTS Fig: Overview of LLM-powered autonomous agent system Component One: Planning# complicated task__. Fig: 11. Illustration how HuggingGPT works Shen et al. 2023) The system comprises of One interesting observation is that while the LLM-based evaluation concluded that GPT-4 and ChemCrow per_ LLM Powered Autonomous Agents Date: June 23,2023 Estimated Reading Time: 31 min Author: Lilian Wen __. 5.14 # 0 Quen Mmage"
+  },
+  {
+    "start": 318.8,
+    "end": 325.8,
+    "text": "Hom Query Tra Lang Smith PlayGround Add Dataset Sharo Annotate 88 Projec Trace Collapse Stats Most relevant ChatOpenAI Annot RunnableSequence SUCCESS Run Feedback Metadata 3.239 1267 Deplo Input ChatOpenAI LATs Datas Rctricvcr 0,17s HUMAN Hub Retriever 0.17s You are an Al language model assistant Your task is to generate five different versions of the given user question t0 retrieve relevant documents from vector database. By generating multiple perspectives on the user question; your goal is to help Retriever 0.165 the user overcome some of the limitations of the distance-based similarity search: Retriever 0.228 Provide these alternative questions separated by newlines Original question: What is task decomposition for LLM agents? ChatOpenAI L50s Output How do LLM agents perform task decomposition? Can you explain the concept of task decomposition in LLM agents? What are the methods used by LLM agents for task decomposition? How does task decomposition work in the context of LLM agents? What is the role of task decomposition in LLM agent's functioning? #0 0"
+  },
+  {
+    "start": 325.8,
+    "end": 329.13,
+    "text": "Query Tra Lang Smith smith: Add Dataset Sharo Annotate 88 Projec Trace Collapse Stats Most relevant Retriever Annot RunnableSequence succeSS Run Feedback Mctadata 1,267 Deplo Input ChatOpenAI Datas Rctricvcr 0,17s query: What are the methods used Dy LLM agents for task decomposition? Hub Retriever 0.17s YAML Output Retriever 0.228 ChatOpenAI L50s DOCUMENTS Some runs have been hidden Sho lq hidden (unS Fig: Overview of LLM-powered autonomous agent system Component One: Planning# complicated task__ Fig: 1. Illustration of how HuggingGPT works Shen et al. 2023) The system comprises of One interesting observation is that while the LLM-based evaluation concluded that GPT-4 and ChemCrow per_ H] Challenges# After going through key ideas and demos of building LLM-centered agents start to sce # 0"
+  },
+  {
+    "start": 329.13,
+    "end": 353.93,
+    "text": "RAG romecrtch Query Tra Lang Smith Playground Add Dataset Sharo Annotate 88 Projec Trace Collapse Stats Most relevant ChatOpenAI Annot RunnableSequence succeSS Run Feedback Mctadata 1,267 Deplo Input ChatOpenAI Datas Rctricvcr 0,17s HUMAN Hub Retriever 0.17s Answer the following question based on this context: [Document(page_content-'HIn]inChallenges#InAfter going through key ideas and demos of building LLM-centered agents; start see Retriever 0.22 system comprises of stages:In(I) Task planning: LLM works as the brain and parses the user requests into multiple ChatOpenAI 150 arguments They use few shot examples guide LLM to do task parsing and planning Inlnstruction: , metadata-{'source\": InDate: June 23,2023 Estimated Reading Time: 31 min Author: Lilian WenginlnlnBuilding agents with LLM (large language model) as its core controller is Engineer and BabyAGI; serve inspiring examples The potentiality LLM extends beyond generating well-written copies, stories; essays and programs; can be framed as powerful general problem solver InAgent System Overview#Inln LLM-powered altanomous agent system, LLM functions as the agent's brain; complemented by several key components:InlnPlanninglnInSubgoal and decomposition: The agent breaks down tasks into smaller; manageable subgoals, enabling efficient handling of complex tasks InReflection and refinement: The agent can do self- Output 5:30 # 0 (arge"
+  },
+  {
+    "start": 353.93,
+    "end": 368.83,
+    "text": "Lang Smith Playground Add Dataset Share Annotate 88 Projec Trace Collapse Stats Most relevant ChatOpenAI Annot RunnableSequence succeSS Run Feedback Metadata 1,267 Deplo Input ChatOpenAI Datas HUMAN Hub Retriever 0.17s You are an Al language model assistant: Your task is to generate different versions the given user question t0 retrieve relevant documents from vector database. By generating multiple perspectives on the user question; your goal is to help (he user overcome some of the limitations of the distance-based similarity search: Provide these alternative questions separated by newlines Original question: What is task decomposition for LLM agents? ChatOpenAI L50s Output How do LLM agents perform task decomposition? Can you explain the concept of task decomposition in LLM agents? What are the methods used by LLM agents for task decomposition? How does task decomposition work in the context of LLM agents? What is the role of task decomposition in LLM agent's functioning? 5;54 # 0 Quen five"
+  }
+]

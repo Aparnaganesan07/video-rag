@@ -3,7 +3,11 @@
 Ask a question about a lecture video, get an answer where every claim cites a timestamp
 like **[17:33]**, and click it to play the video from that exact second.
 
-> **Status:** Phase 4 done (evaluation). Next: Docker + Hugging Face Spaces deployment (Phase 5).
+**Live demo:** _coming soon (Hugging Face Spaces)_ · Stack: faster-whisper · PySceneDetect + EasyOCR ·
+bge-small + BM25 + RRF · bge-reranker · ChromaDB · Groq · Streamlit · FastAPI · Docker
+
+<!-- Demo GIF: record the app, save as docs/demo.gif, then uncomment the next line -->
+<!-- ![Demo: ask a question, click a timestamp, the video jumps there](docs/demo.gif) -->
 
 ## Results
 
@@ -56,22 +60,36 @@ questions); latency was measured on an 8 GB laptop CPU.
 
 ## How it works
 
-```
-INDEXING
-YouTube URL / playlist
-  ├─► yt-dlp audio only (m4a) ─► faster-whisper ─► timestamped speech segments
-  └─► yt-dlp video only (≤720p) ─► PySceneDetect (brightness+edges) ─► keyframes ─► EasyOCR ─► slide text
-  ─► chunker: ~45s windows, 10s overlap, + slide text visible in each window
-  ─► bge-small-en-v1.5 embeddings ─► ChromaDB (video_id, start/end seconds, slide_text)
+```mermaid
+flowchart LR
+    subgraph Indexing
+        URL[YouTube URL / playlist] --> A[yt-dlp<br/>audio only]
+        URL --> V[yt-dlp<br/>video only ≤720p]
+        A --> W[faster-whisper<br/>timestamped speech]
+        V --> S[PySceneDetect<br/>slide changes] --> O[EasyOCR<br/>slide text]
+        W --> C[Chunker<br/>45s windows, 10s overlap<br/>+ slide text per window]
+        O --> C
+        C --> E[bge-small<br/>embeddings] --> DB[(ChromaDB<br/>video_id, start, end)]
+    end
 
-QUERYING
-Question ─► vector search (top 20) ─┐
-         ─► BM25 keyword (top 20) ──┴─► Reciprocal Rank Fusion ─► bge-reranker-base (top 10 → 5)
-         ─► prompt: transcript lines + "(on screen)" slide lines, each with its [mm:ss]
-         ─► Groq LLM (gpt-oss-120b) answers, citing [mm:ss] after every sentence
-         ─► citations checked against the retrieved sources (ungrounded ones flagged)
-         ─► UI: clicking [mm:ss] calls YouTube IFrame API player.seekTo(seconds)
+    subgraph Querying
+        Q[Question] --> VS[Vector search<br/>top 20]
+        Q --> BM[BM25 keywords<br/>top 20]
+        VS --> F[Reciprocal<br/>Rank Fusion]
+        BM --> F
+        F --> R[bge-reranker<br/>top 10 → 5]
+        R --> L[Groq LLM<br/>cites mm:ss per sentence]
+        L --> G[Grounding check<br/>citation inside a source?]
+        G --> UI[Streamlit + YouTube player<br/>click → seekTo]
+    end
+
+    DB -.-> VS
+    DB -.-> BM
 ```
+
+Two downloads instead of one: Whisper only needs audio and OCR only needs pictures, so the streams are
+never merged and ffmpeg isn't needed. The LLM sees each transcript line and each slide with its own
+`[mm:ss]`, so citations point to a sentence, not a 45-second chunk.
 
 ## Setup (Windows, CPU only)
 
@@ -133,6 +151,9 @@ app/generation/  answer.py: prompt, Groq call, citation parsing + grounding chec
 app/pipeline.py  index_video(), index_source(), search(), ask()
 app/cli.py       command-line entry point
 app/api.py       FastAPI backend
+app/seed.py      export / rebuild the pre-indexed demo videos (demo_data/)
+deploy/          Hugging Face Spaces upload script + Space README
+demo_data/       transcripts, chunks, slide text of the 4 demo lectures (committed, ~340 KB)
 ui/              Streamlit app (player + clickable answer in one component)
 tests/           unit tests (chunker, citations, OCR helpers, RRF, BM25 tokenizer, eval metrics)
 eval/            50 labelled questions, evaluate.py (Hit@k, MRR, citation accuracy), results
@@ -177,7 +198,31 @@ data/            downloads, transcripts, frames, vector DB (gitignored)
 - **Player + answer in one HTML component**: clicking a timestamp seeks the player in the browser,
   without a Streamlit rerun. Citations from another video switch videos.
 
+## Deployment
+
+**Docker** (CPU-only image, query models baked in, serves the UI on port 7860):
+```powershell
+docker build -t video-rag .
+docker run -p 7860:7860 -e GROQ_API_KEY=your_key video-rag     # open http://localhost:7860
+```
+
+**Hugging Face Spaces**: YouTube blocks most downloads from cloud servers, so the hosted demo ships
+with the 4 evaluated lectures pre-indexed. `demo_data/` holds their transcripts, chunks and slide text
+(~340 KB of JSON). At startup `python -m app.seed` rebuilds the vector index from it in seconds.
+```powershell
+hf auth login                              # once, with a WRITE token from huggingface.co/settings/tokens
+python -m deploy.deploy_hf YOUR_HF_USERNAME
+```
+Then add `GROQ_API_KEY` under the Space's *Settings → Variables and secrets*.
+Optional environment overrides: `USE_RERANKER=false` (≈8s faster per query), `USE_HYBRID`, `ENABLE_SLIDES`,
+`LLM_MODEL`, `LLM_REASONING_EFFORT`.
+
+To add your own videos to the shipped demo: index them locally, add their ids to `DEMO_VIDEOS` in
+`app/seed.py`, run `python -m app.seed --export`, commit `demo_data/`.
+
 ## Known limitations
+- The hosted demo can't reliably index new YouTube videos (cloud IPs are blocked); run locally for that.
+- Reranking costs ~8-10s per query on a laptop CPU (free Spaces hardware is similar).
 - OCR on CPU is slow (~4 min for a 6-min screen-recorded lecture); use `--no-slides` for talking-head videos.
 - Screen recordings produce noisy OCR (notebook UI, menus). It's indexed anyway; the reranker and LLM cope.
 - gpt-oss at low reasoning effort sometimes answers "not found" when sources only partly cover a

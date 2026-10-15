@@ -157,6 +157,11 @@ videos = [v for v in vector_store.list_videos() if not v["video_id"].startswith(
 
 with st.sidebar:
     st.header("🎬 Videos")
+    if config.IS_HOSTED:
+        st.info(
+            "Hosted demo: 4 lectures are pre-indexed. Adding new videos may fail here, because "
+            "YouTube blocks downloads from cloud servers. Run it locally to index your own."
+        )
     with st.form("index_form", clear_on_submit=True):
         url = st.text_input("Add a YouTube video or playlist", placeholder="https://www.youtube.com/watch?v=...")
         use_ocr = st.checkbox(

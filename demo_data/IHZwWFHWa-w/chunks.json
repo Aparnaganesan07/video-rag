@@ -1,0 +1,226 @@
+[
+  {
+    "id": "IHZwWFHWa-w_0000",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 0,
+    "start": 4.05,
+    "end": 50.05,
+    "text": "Last video, I laid out the structure of a neural network. I'll give a quick recap here, just so that it's fresh in our minds, and then I have two main goals for this video. The first is to introduce the idea of gradient descent, which underlies not only how neural networks learn but how a lot of other machine learning works as well. Then after that, we're going to dig in a little more to how this particular network performs and what those hidden layers of neurons end up actually looking for. As a reminder, our goal here is the classic example of handwritten digit recognition, the hello world of neural networks. These digits are rendered on a 28x28 pixel grid, each pixel with some grayscale value between 0 and 1. Those are what determine the activations of 784 neurons in the input layer of the network."
+  },
+  {
+    "id": "IHZwWFHWa-w_0001",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 1,
+    "start": 43.05,
+    "end": 94.05,
+    "text": "Those are what determine the activations of 784 neurons in the input layer of the network. And then the activation for each neuron in the following layers is based on a weighted sum of all the activations in the previous layer plus some special number called a bias. Then you compose that sum with some other function, like the sigmoid squishification or array-loo, the way that I walked through last video. In total, given the somewhat arbitrary choice of two hidden layers here with 16 neurons each, the network has about 13,000 weights and biases that we can adjust. And it's these values that determine what exactly the network actually does. Then what we mean when we say that this network classifies a given digit is that the brightest of those 10 neurons in the final layer corresponds to that digit."
+  },
+  {
+    "id": "IHZwWFHWa-w_0002",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 2,
+    "start": 85.05,
+    "end": 130.05,
+    "text": "Then what we mean when we say that this network classifies a given digit is that the brightest of those 10 neurons in the final layer corresponds to that digit. And remember, the motivation that we had in mind here for the layered structure was that maybe the second layer could pick up on the edges and the third layer might pick up on patterns like loops and lines. And the last one could just piece together those patterns to recognize digits. So here we learn how the network learns. What we want is an algorithm where you can show this network a whole bunch of training data which comes in the form of a bunch of different images of handwritten digits along with labels for what they're supposed to be. And it'll adjust those 13,000 weights and biases so as to improve its performance on the training data."
+  },
+  {
+    "id": "IHZwWFHWa-w_0003",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 3,
+    "start": 123.05,
+    "end": 175.63,
+    "text": "And it'll adjust those 13,000 weights and biases so as to improve its performance on the training data. Hopefully, this layered structure will mean that what it learns generalizes to images beyond that training data. And the way we test that is that after you train the network you show it more labeled data, that it's never seen before, and you see how accurately it classifies those new images. Fortunately for us, and what makes this such a common example to start with, is that the good people behind the MNIST database have put together a collection of tens of thousands of handwritten digit images, each one labeled with the numbers that they're supposed to be. And it's provocative as it is to describe a machine as learning. Once you actually see how it works, it feels a lot less like some crazy sci-fi premise and a lot more like a calculus exercise."
+  },
+  {
+    "id": "IHZwWFHWa-w_0004",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 4,
+    "start": 167.63,
+    "end": 215.88,
+    "text": "Once you actually see how it works, it feels a lot less like some crazy sci-fi premise and a lot more like a calculus exercise. I mean, basically it comes down to finding the minimum of a certain function. Remember, conceptually we're thinking of each neuron as being connected to all of the neurons in the previous layer. And the weights in the weighted sum defining its activation are kind of like the strengths of those connections. And the bias is some indication of whether that neuron tends to be active or inactive. And to start things off, we're just going to initialize all of those weights and biases totally randomly. Needless to say, this network is going to perform pretty horribly on a given training example since it's just doing something random. For example, you feed in this image of a three, and the output layer just looks like a mess."
+  },
+  {
+    "id": "IHZwWFHWa-w_0005",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 5,
+    "start": 210.88,
+    "end": 258.83,
+    "text": "For example, you feed in this image of a three, and the output layer just looks like a mess. So what you do is you define a cost function, a way of telling the computer, no, bad computer. That output should have activations which are zero for most neurons, but one for this neuron, what you gave me is utter trash. To say that a little more mathematically, what you do is add up the squares of the differences between each of those trash output activations and the value that you want them to have. And this is what we'll call the cost of a single training example. Notice, this sum is small when the network confidently classifies the image correctly, but it's large when the network seems like it doesn't really know what it's doing."
+  },
+  {
+    "id": "IHZwWFHWa-w_0006",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 6,
+    "start": 258.83,
+    "end": 308.83,
+    "text": "So then what you do is consider the average cost over all of the tens of thousands of training examples at your disposal. This average cost is our measure for how lousy the network is and how bad the computer should feel. And that's a complicated thing. Remember how the network itself was basically a function, one that takes in 784 numbers as inputs, the pixel values, and spits out 10 numbers as its output. And in a sense it's parameterized by all these weights and biases. Well the cost function is a layer of complexity on top of that. It takes as its input, those 13,000 or so weights and biases, and it spits out a single number describing how bad those weights and biases are. And the way it's defined depends on the network's behavior over all the tens of thousands of pieces of training data."
+  },
+  {
+    "id": "IHZwWFHWa-w_0007",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 7,
+    "start": 301.83,
+    "end": 350.83,
+    "text": "And the way it's defined depends on the network's behavior over all the tens of thousands of pieces of training data. That's a lot to think about. But just telling the computer what a crappy job it's doing isn't very helpful. You want to tell it how to change those weights and biases so that it gets better. To make it easier, rather than struggling to imagine a function with 13,000 inputs, just imagine a simple function that has one number as an input and one number as an output. How do you find an input that minimizes the value of this function? Calculus students will know that you can sometimes figure out that minimum explicitly. But that's not always feasible for really complicated functions. Certainly not in the 13,000 input version of this situation for our crazy complicated neural network cost function."
+  },
+  {
+    "id": "IHZwWFHWa-w_0008",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 8,
+    "start": 343.83,
+    "end": 393.66,
+    "text": "Certainly not in the 13,000 input version of this situation for our crazy complicated neural network cost function. A more flexible tactic is to start at any all input and figure out which direction you should step to make that output lower. Specifically, if you can figure out the slope of the function where you are, then shift to the left if that slope is positive and shift the input to the right if that slope is negative. If you do this repeatedly, at each point checking the new slope and taking the appropriate step, you're going to approach some local minimum of the function. And the image you might have in mind here is a ball rolling down a hill. And notice, even for this really simplified single input function, there are many possible values that you might land in, depending on which random input you start at."
+  },
+  {
+    "id": "IHZwWFHWa-w_0009",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 9,
+    "start": 383.66,
+    "end": 428.66,
+    "text": "And notice, even for this really simplified single input function, there are many possible values that you might land in, depending on which random input you start at. And there's no guarantee that the local minimum you land in is going to be the smallest possible value of the cost function. That's going to carry over to our neural network case as well. And I also want you to notice how if you make your step sizes proportional to the slope, then when the slope is flattening out towards the minimum, your steps get smaller and smaller. And that kind of helps you from overshooting. Bumping up the complexity a bit, imagine instead of function with two inputs and one output. You might think of the input space as the xy plane and the cost function as being graphed as a surface above it."
+  },
+  {
+    "id": "IHZwWFHWa-w_0010",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 10,
+    "start": 421.66,
+    "end": 466.66,
+    "text": "You might think of the input space as the xy plane and the cost function as being graphed as a surface above it. Now, instead of asking about the slope of the function, you have to ask which direction should you step in this input space so as to decrease the output of the function most quickly. In other words, what's the downhill direction? And again, it's helpful to think of a ball rolling down that hill. Those of you familiar with multivariable calculus will know that the gradient of a function gives you the direction of steepest ascent, basically which direction should you step to increase the function most quickly. Naturally enough, taking the negative of that gradient gives you the direction to step that decreases the function most quickly."
+  },
+  {
+    "id": "IHZwWFHWa-w_0011",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 11,
+    "start": 459.66,
+    "end": 507.66,
+    "text": "Naturally enough, taking the negative of that gradient gives you the direction to step that decreases the function most quickly. And even more than that, the length of this gradient vector is actually an indication for just how steep that steepest slope is. Now, if you're unfamiliar with multivariable calculus and you want to learn more, check out some of the work that I did for Khan Academy on the topic. Honestly though, all that matters for you and me right now is that in principle there exists a way to compute this vector, this vector that tells you what the downhill direction is and how steep it is. You'll be okay if that's all you know and you're not rock solid on the details. Because if you can get that, the algorithm for minimizing the function is to compute this gradient direction, then take a small step downhill and just repeat that over and over."
+  },
+  {
+    "id": "IHZwWFHWa-w_0012",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 12,
+    "start": 507.66,
+    "end": 556.66,
+    "text": "It's the same basic idea for a function that has 13,000 inputs instead of two inputs. Imagine organizing all 13,000 weights and biases of our network into a giant column vector. The negative gradient of the cost function is just a vector. It's some direction inside this insanely huge input space that tells you which nudges to all of those numbers is going to cause the most rapid decrease to the cost function. And of course, with our specially designed cost function, changing the weights and biases to decrease it means making the output of the network on each piece of training data look less like a random array of 10 values. And more like an actual decision that we want it to make. It's important to remember this cost function involves an average over all of the training data."
+  },
+  {
+    "id": "IHZwWFHWa-w_0013",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 13,
+    "start": 547.66,
+    "end": 599.06,
+    "text": "And more like an actual decision that we want it to make. It's important to remember this cost function involves an average over all of the training data. So if you minimize it, it means it's a better performance on all of those samples. The algorithm for computing this gradient efficiently, which is effectively the heart of how a neural network learns is called back propagation. And it's what I'm going to be talking about next video. I really want to take the time to walk through what exactly happens to each weight and each bias for a given piece of training data. Trying to give an intuitive feel for what's happening beyond the pile of relevant calculus and formulas. Right here, right now, the main thing I want you to know, independent of implementation details, is that what we mean when we talk about a network learning is that it's just minimizing a cost function."
+  },
+  {
+    "id": "IHZwWFHWa-w_0014",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 14,
+    "start": 599.06,
+    "end": 644.06,
+    "text": "And notice, one consequence of that is that it's important for this cost function to have a nice smooth output so that we can find a local minimum by taking little steps downhill. This is why, by the way, artificial neurons have continuously ranging activations rather than simply being active or inactive in a binary way, the way that biological neurons are. This process of repeatedly nudging an input of a function by some multiple of the negative gradient is called gradient descent. It's a way to converge toward some local minimum of a cost function, basically a valley in this graph. I'm still showing the picture of a function with two inputs, of course, because nudges in a 13,000-dimensional input space are a little hard to wrap your mind around. But there is actually a nice non-spatial way to think about this."
+  },
+  {
+    "id": "IHZwWFHWa-w_0015",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 15,
+    "start": 641.06,
+    "end": 688.14,
+    "text": "But there is actually a nice non-spatial way to think about this. Each component of the negative gradient tells us two things. The sign, of course, tells us whether the corresponding component of the input vector should be nudged up or down. But importantly, the relative magnitudes of all these components kind of tells you which changes matter more. You see, in our network, an adjustment to one of the weights might have a much greater impact on the cost function than the adjustment to some other weight. Some of these connections just matter more for our training data. So a way that you can think about this gradient vector of our mind-warpingly massive cost function is that it encodes the relative importance of each weight and bias."
+  },
+  {
+    "id": "IHZwWFHWa-w_0016",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 16,
+    "start": 679.14,
+    "end": 730.14,
+    "text": "So a way that you can think about this gradient vector of our mind-warpingly massive cost function is that it encodes the relative importance of each weight and bias. That is, which of these changes is going to carry the most bang for your buck? This really is just another way of thinking about direction. To take a simpler example, if you have some function with two variables as an input and you compute that it's gradient at some particular point comes out as 3-1. Then on the one hand, you can interpret that as saying that when you're standing at that input, moving along this direction increases the function most quickly. That when you graph the function above the plane of input points, that vector is what's giving you the straight uphill direction. But another way to read that is to say that changes to this first variable have three times the importance as changes to the second variable."
+  },
+  {
+    "id": "IHZwWFHWa-w_0017",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 17,
+    "start": 722.14,
+    "end": 767.18,
+    "text": "But another way to read that is to say that changes to this first variable have three times the importance as changes to the second variable. That at least in the neighborhood of the relevant input, nudging the x-value carries a lot more bang for your buck. Alright, let's zoom out and sum up where we are so far. The network itself is this function with 784 inputs and 10 outputs, defined in terms of all of these weighted sums. The cost function is a layer of complexity on top of that. It takes the 13,000 weights and biases as inputs and spits out a single measure of laziness based on the training examples. And the gradient of the cost function is one more layer of complexity still."
+  },
+  {
+    "id": "IHZwWFHWa-w_0018",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 18,
+    "start": 762.18,
+    "end": 812.38,
+    "text": "And the gradient of the cost function is one more layer of complexity still. It tells us what nudges to all of these weights and biases cause the fastest change to the value of the cost function, which you might interpret as saying which changes to which weights matter the most. So when you initialize the network with random weights and biases and adjust them many times based on this gradient descent process, how well does it actually perform on images that it's never seen before? Well, the one that I've described here with the two hidden layers of 16 neurons each chosen mostly for aesthetic reasons, well, it's not bad. It classifies about 96% of the new images that it sees correctly. And honestly, if you look at some of the examples that it messes up on, you kind of feel compelled to cut it a little slack."
+  },
+  {
+    "id": "IHZwWFHWa-w_0019",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 19,
+    "start": 806.38,
+    "end": 857.22,
+    "text": "And honestly, if you look at some of the examples that it messes up on, you kind of feel compelled to cut it a little slack. Now, if you play around with the hidden layer structure and make a couple tweaks, you can get this up to 98%. And that's pretty good. It's not the best. You can certainly get better performance by getting more sophisticated than this plain vanilla network. But given how daunting the initial task is, I just think there's something incredible about any network doing this well on images that it's never seen before, given that we never specifically told it what patterns to look for. Originally, the way that I motivated this structure was by describing a hope that we might have, that the second layer might pick up on little edges, that the third layer would piece together those edges to recognize loops and longer lines, and that those might be piece together to recognize digits."
+  },
+  {
+    "id": "IHZwWFHWa-w_0020",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 20,
+    "start": 857.22,
+    "end": 909.22,
+    "text": "So, is this what our network is actually doing? Well, for this one at least, not at all. Remember how last video we looked at how the weights of the connections from all of the neurons in the first layer, to a given neuron in the second layer, can be visualized as a given pixel pattern that that second layer neuron is picking up on? Well, when we actually do that, for the weights associated with these transitions, from the first layer to the next. Instead of picking up on isolated little edges here and there, they look, well, almost random, just with some very loose patterns in the middle there. It would seem that in the unfathomably large, 13,000-dimensional space of possible weights and biases, our network found itself a happy little local minimum that, despite successfully classifying most images, doesn't exactly pick up on the patterns that we might have hoped for."
+  },
+  {
+    "id": "IHZwWFHWa-w_0021",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 21,
+    "start": 909.22,
+    "end": 955.22,
+    "text": "And to really drive this point home, watch what happens when you input a random image. If the system was smart, you might expect it to either feel uncertain, maybe, not really activating any of those 10 output neurons or activating them all evenly. But instead, it confidently gives you some nonsense answer, as if it feels as sure that this random noise is a 5, as it does that an actual image of a 5 is a 5. Frays differently? Even if this network can recognize digits pretty well, it has no idea how to draw them. A lot of this is because it's such a tightly constrained training setup. I mean, put yourself in the network's shoes here. From its point of view, the entire universe consists of nothing but clearly defined unmoving digits centered in a tiny grid."
+  },
+  {
+    "id": "IHZwWFHWa-w_0022",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 22,
+    "start": 955.22,
+    "end": 1006.81,
+    "text": "And its cost function just never gave it any incentive to be anything but utterly confident in its decisions. So with this is the image of what those second layer neurons are really doing, you might wonder why I would introduce this network with the motivation of picking up on edges and patterns. I mean, that's just not at all what it ends up doing. Well, this is not meant to be our end goal, but instead a starting point. Frankly, this is old technology, the kind researched in the 80s and 90s. And you do need to understand it before you can understand more detailed modern variance, and it clearly is capable of solving some interesting problems. But the more you dig in to what those hidden layers are really doing, the less intelligent it seems. Shifting the focus for a moment from how networks learn to how you learn, that'll only happen if you engage actively with the material here somehow."
+  },
+  {
+    "id": "IHZwWFHWa-w_0023",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 23,
+    "start": 998.81,
+    "end": 1047.81,
+    "text": "Shifting the focus for a moment from how networks learn to how you learn, that'll only happen if you engage actively with the material here somehow. One pretty simple thing that I want you to do is just pause right now and think deeply for a moment about what changes you might make to this system and how it perceives images if you wanted it to better pick up on things like edges and patterns. But better than that, to actually engage with the material, I highly recommend the book by Michael Nielsen on deep learning and neural networks. In it, you can find the code and the data to download and play with for this exact example, and the book will walk you through step by step what that code is doing. What's awesome is that this book is free and publicly available, so if you do get something out of it, consider joining me in making a donation towards Nielsen's efforts."
+  },
+  {
+    "id": "IHZwWFHWa-w_0024",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 24,
+    "start": 1038.81,
+    "end": 1089.18,
+    "text": "What's awesome is that this book is free and publicly available, so if you do get something out of it, consider joining me in making a donation towards Nielsen's efforts. I've also linked a couple other resources that I like a lot in the description, including the phenomenal and beautiful blog posts by Chris Ola and the articles in Distill. To close things off here for the last few minutes, I want to jump back into a snippet of the interview that I had with Lisha Lee. You might remember her from the last video, she did her PhD work in deep learning. And in this little snippet she talks about two recent papers that really dig in to how some of the more modern image recognition networks are actually learning. Just to set up where we were in the conversation, the first paper took one of these particularly deep neural networks that's really good at image recognition, and instead of training it on a properly labeled data set, it shuffled all of the labels around before training."
+  },
+  {
+    "id": "IHZwWFHWa-w_0025",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 25,
+    "start": 1089.18,
+    "end": 1145.18,
+    "text": "Obviously, the testing accuracy here was going to be no better than random, since everything's just randomly labeled. But it was still able to achieve the same training accuracy as you would on a properly labeled data set. Basically, the millions of weights for this particular network were enough for it to just memorize the random data. Which kind of raises the question for whether minimizing this cost function actually corresponds to any sort of structure in the image, or is it just memorization? I rise the entire data set of what the correct classification is. And so, a couple of half a year later at ICML this year, there was not exactly rebuttal paper that addressed some aspects of like, hey, actually these networks are doing something a little bit smarter than that. If you look at that accuracy curve, if you were just training on a random data set, that curve sort of went down very slowly in almost kind of a linear fashion."
+  },
+  {
+    "id": "IHZwWFHWa-w_0026",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 26,
+    "start": 1145.18,
+    "end": 1194.18,
+    "text": "So you're really struggling to find that local minimum of possible, the right weights that would get you that accuracy. Whereas if you're actually training on a structured data set, one that has the right labels, you know, you fiddle around a little bit in the beginning, but then you kind of dropped very fast to get to that accuracy level. And so in some sense, it was easier to find that local maxima. And so it was also interesting about that is it brings into light another paper from actually a couple of years ago. Which has a lot more simplifications about the network layers, but one of the results was saying how if you look at the optimization landscape, the local minima that these networks tend to learn are actually of equal quality. So in some sense, if your data set a structure, you should be able to find that much more easily."
+  },
+  {
+    "id": "IHZwWFHWa-w_0027",
+    "video_id": "IHZwWFHWa-w",
+    "chunk_index": 27,
+    "start": 1189.18,
+    "end": 1213.61,
+    "text": "So in some sense, if your data set a structure, you should be able to find that much more easily. My thanks, as always, to those of you supporting on Patreon. I've said before just what a game changer of Patreon is, but these videos really would not be possible without you. I also want to give a special thanks to the VC firm Amplify Partners in their support of these initial videos in the series."
+  }
+]

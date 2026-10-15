@@ -1,0 +1,1381 @@
+{
+  "retrieval": {
+    "transcript-only": {
+      "hit@1": 0.4,
+      "hit@3": 0.8,
+      "hit@5": 0.88,
+      "mrr": 0.6095555555555555,
+      "n": 50,
+      "latency_s": 0.042060842514038084,
+      "by_type": {
+        "keyword": {
+          "hit@1": 0.5333333333333333,
+          "hit@3": 0.8666666666666667,
+          "hit@5": 1.0,
+          "mrr": 0.7,
+          "n": 15
+        },
+        "paraphrase": {
+          "hit@1": 0.34615384615384615,
+          "hit@3": 0.8076923076923077,
+          "hit@5": 0.8461538461538461,
+          "mrr": 0.5818376068376069,
+          "n": 26
+        },
+        "slide": {
+          "hit@1": 0.3333333333333333,
+          "hit@3": 0.6666666666666666,
+          "hit@5": 0.7777777777777778,
+          "mrr": 0.5388888888888889,
+          "n": 9
+        }
+      },
+      "per_question": [
+        {
+          "id": "nn-01",
+          "rank": 3
+        },
+        {
+          "id": "nn-02",
+          "rank": 1
+        },
+        {
+          "id": "nn-03",
+          "rank": 1
+        },
+        {
+          "id": "nn-04",
+          "rank": 1
+        },
+        {
+          "id": "nn-06",
+          "rank": 9
+        },
+        {
+          "id": "nn-08",
+          "rank": 2
+        },
+        {
+          "id": "nn-09",
+          "rank": 3
+        },
+        {
+          "id": "nn-10",
+          "rank": 1
+        },
+        {
+          "id": "nn-11",
+          "rank": 3
+        },
+        {
+          "id": "nn-13",
+          "rank": 3
+        },
+        {
+          "id": "nn-14",
+          "rank": 10
+        },
+        {
+          "id": "gd-01",
+          "rank": 1
+        },
+        {
+          "id": "gd-02",
+          "rank": 6
+        },
+        {
+          "id": "gd-04",
+          "rank": 2
+        },
+        {
+          "id": "gd-05",
+          "rank": 4
+        },
+        {
+          "id": "gd-06",
+          "rank": 2
+        },
+        {
+          "id": "gd-08",
+          "rank": 2
+        },
+        {
+          "id": "gd-09",
+          "rank": 2
+        },
+        {
+          "id": "gd-10",
+          "rank": 1
+        },
+        {
+          "id": "gd-11",
+          "rank": 1
+        },
+        {
+          "id": "gd-12",
+          "rank": 2
+        },
+        {
+          "id": "gd-13",
+          "rank": 1
+        },
+        {
+          "id": "gd-14",
+          "rank": 4
+        },
+        {
+          "id": "gd-15",
+          "rank": 2
+        },
+        {
+          "id": "lc-01",
+          "rank": 1
+        },
+        {
+          "id": "lc-02",
+          "rank": 2
+        },
+        {
+          "id": "lc-03",
+          "rank": null
+        },
+        {
+          "id": "lc-04",
+          "rank": 2
+        },
+        {
+          "id": "lc-05",
+          "rank": 2
+        },
+        {
+          "id": "lc-06",
+          "rank": 2
+        },
+        {
+          "id": "lc-07",
+          "rank": 2
+        },
+        {
+          "id": "lc-08",
+          "rank": 1
+        },
+        {
+          "id": "lc-09",
+          "rank": 1
+        },
+        {
+          "id": "lc-10",
+          "rank": 2
+        },
+        {
+          "id": "lc-11",
+          "rank": 1
+        },
+        {
+          "id": "br-01",
+          "rank": 1
+        },
+        {
+          "id": "br-02",
+          "rank": 1
+        },
+        {
+          "id": "br-03",
+          "rank": 3
+        },
+        {
+          "id": "br-04",
+          "rank": 4
+        },
+        {
+          "id": "br-05",
+          "rank": 1
+        },
+        {
+          "id": "br-06",
+          "rank": 1
+        },
+        {
+          "id": "br-07",
+          "rank": 2
+        },
+        {
+          "id": "br-08",
+          "rank": 1
+        },
+        {
+          "id": "br-09",
+          "rank": 10
+        },
+        {
+          "id": "br-10",
+          "rank": 3
+        },
+        {
+          "id": "br-11",
+          "rank": 4
+        },
+        {
+          "id": "br-12",
+          "rank": 1
+        },
+        {
+          "id": "br-13",
+          "rank": 1
+        },
+        {
+          "id": "br-14",
+          "rank": 1
+        },
+        {
+          "id": "br-15",
+          "rank": null
+        }
+      ]
+    },
+    "+ slides": {
+      "hit@1": 0.48,
+      "hit@3": 0.84,
+      "hit@5": 0.92,
+      "mrr": 0.6704126984126983,
+      "n": 50,
+      "latency_s": 0.04191338062286377,
+      "by_type": {
+        "keyword": {
+          "hit@1": 0.5333333333333333,
+          "hit@3": 0.8666666666666667,
+          "hit@5": 0.9333333333333333,
+          "mrr": 0.703968253968254,
+          "n": 15
+        },
+        "paraphrase": {
+          "hit@1": 0.4230769230769231,
+          "hit@3": 0.8076923076923077,
+          "hit@5": 0.8846153846153846,
+          "mrr": 0.6363247863247863,
+          "n": 26
+        },
+        "slide": {
+          "hit@1": 0.5555555555555556,
+          "hit@3": 0.8888888888888888,
+          "hit@5": 1.0,
+          "mrr": 0.712962962962963,
+          "n": 9
+        }
+      },
+      "per_question": [
+        {
+          "id": "nn-01",
+          "rank": 3
+        },
+        {
+          "id": "nn-02",
+          "rank": 1
+        },
+        {
+          "id": "nn-03",
+          "rank": 1
+        },
+        {
+          "id": "nn-04",
+          "rank": 1
+        },
+        {
+          "id": "nn-06",
+          "rank": 9
+        },
+        {
+          "id": "nn-08",
+          "rank": 2
+        },
+        {
+          "id": "nn-09",
+          "rank": 3
+        },
+        {
+          "id": "nn-10",
+          "rank": 1
+        },
+        {
+          "id": "nn-11",
+          "rank": 3
+        },
+        {
+          "id": "nn-13",
+          "rank": 1
+        },
+        {
+          "id": "nn-14",
+          "rank": 10
+        },
+        {
+          "id": "gd-01",
+          "rank": 1
+        },
+        {
+          "id": "gd-02",
+          "rank": 6
+        },
+        {
+          "id": "gd-04",
+          "rank": 2
+        },
+        {
+          "id": "gd-05",
+          "rank": 4
+        },
+        {
+          "id": "gd-06",
+          "rank": 2
+        },
+        {
+          "id": "gd-08",
+          "rank": 2
+        },
+        {
+          "id": "gd-09",
+          "rank": 2
+        },
+        {
+          "id": "gd-10",
+          "rank": 1
+        },
+        {
+          "id": "gd-11",
+          "rank": 1
+        },
+        {
+          "id": "gd-12",
+          "rank": 2
+        },
+        {
+          "id": "gd-13",
+          "rank": 1
+        },
+        {
+          "id": "gd-14",
+          "rank": 4
+        },
+        {
+          "id": "gd-15",
+          "rank": 2
+        },
+        {
+          "id": "lc-01",
+          "rank": 1
+        },
+        {
+          "id": "lc-02",
+          "rank": 2
+        },
+        {
+          "id": "lc-03",
+          "rank": 3
+        },
+        {
+          "id": "lc-04",
+          "rank": 3
+        },
+        {
+          "id": "lc-05",
+          "rank": 4
+        },
+        {
+          "id": "lc-06",
+          "rank": 1
+        },
+        {
+          "id": "lc-07",
+          "rank": 7
+        },
+        {
+          "id": "lc-08",
+          "rank": 1
+        },
+        {
+          "id": "lc-09",
+          "rank": 2
+        },
+        {
+          "id": "lc-10",
+          "rank": 1
+        },
+        {
+          "id": "lc-11",
+          "rank": 2
+        },
+        {
+          "id": "br-01",
+          "rank": 1
+        },
+        {
+          "id": "br-02",
+          "rank": 2
+        },
+        {
+          "id": "br-03",
+          "rank": 4
+        },
+        {
+          "id": "br-04",
+          "rank": 2
+        },
+        {
+          "id": "br-05",
+          "rank": 1
+        },
+        {
+          "id": "br-06",
+          "rank": 1
+        },
+        {
+          "id": "br-07",
+          "rank": 1
+        },
+        {
+          "id": "br-08",
+          "rank": 1
+        },
+        {
+          "id": "br-09",
+          "rank": 1
+        },
+        {
+          "id": "br-10",
+          "rank": 3
+        },
+        {
+          "id": "br-11",
+          "rank": 1
+        },
+        {
+          "id": "br-12",
+          "rank": 1
+        },
+        {
+          "id": "br-13",
+          "rank": 1
+        },
+        {
+          "id": "br-14",
+          "rank": 1
+        },
+        {
+          "id": "br-15",
+          "rank": 1
+        }
+      ]
+    },
+    "+ hybrid (BM25)": {
+      "hit@1": 0.54,
+      "hit@3": 0.9,
+      "hit@5": 1.0,
+      "mrr": 0.733,
+      "n": 50,
+      "latency_s": 0.041423463821411134,
+      "by_type": {
+        "keyword": {
+          "hit@1": 0.5333333333333333,
+          "hit@3": 0.9333333333333333,
+          "hit@5": 1.0,
+          "mrr": 0.7388888888888889,
+          "n": 15
+        },
+        "paraphrase": {
+          "hit@1": 0.4230769230769231,
+          "hit@3": 0.8461538461538461,
+          "hit@5": 1.0,
+          "mrr": 0.6564102564102564,
+          "n": 26
+        },
+        "slide": {
+          "hit@1": 0.8888888888888888,
+          "hit@3": 1.0,
+          "hit@5": 1.0,
+          "mrr": 0.9444444444444444,
+          "n": 9
+        }
+      },
+      "per_question": [
+        {
+          "id": "nn-01",
+          "rank": 2
+        },
+        {
+          "id": "nn-02",
+          "rank": 2
+        },
+        {
+          "id": "nn-03",
+          "rank": 1
+        },
+        {
+          "id": "nn-04",
+          "rank": 3
+        },
+        {
+          "id": "nn-06",
+          "rank": 5
+        },
+        {
+          "id": "nn-08",
+          "rank": 2
+        },
+        {
+          "id": "nn-09",
+          "rank": 4
+        },
+        {
+          "id": "nn-10",
+          "rank": 1
+        },
+        {
+          "id": "nn-11",
+          "rank": 2
+        },
+        {
+          "id": "nn-13",
+          "rank": 1
+        },
+        {
+          "id": "nn-14",
+          "rank": 2
+        },
+        {
+          "id": "gd-01",
+          "rank": 1
+        },
+        {
+          "id": "gd-02",
+          "rank": 1
+        },
+        {
+          "id": "gd-04",
+          "rank": 1
+        },
+        {
+          "id": "gd-05",
+          "rank": 2
+        },
+        {
+          "id": "gd-06",
+          "rank": 2
+        },
+        {
+          "id": "gd-08",
+          "rank": 2
+        },
+        {
+          "id": "gd-09",
+          "rank": 2
+        },
+        {
+          "id": "gd-10",
+          "rank": 1
+        },
+        {
+          "id": "gd-11",
+          "rank": 1
+        },
+        {
+          "id": "gd-12",
+          "rank": 1
+        },
+        {
+          "id": "gd-13",
+          "rank": 2
+        },
+        {
+          "id": "gd-14",
+          "rank": 5
+        },
+        {
+          "id": "gd-15",
+          "rank": 1
+        },
+        {
+          "id": "lc-01",
+          "rank": 1
+        },
+        {
+          "id": "lc-02",
+          "rank": 4
+        },
+        {
+          "id": "lc-03",
+          "rank": 1
+        },
+        {
+          "id": "lc-04",
+          "rank": 1
+        },
+        {
+          "id": "lc-05",
+          "rank": 1
+        },
+        {
+          "id": "lc-06",
+          "rank": 1
+        },
+        {
+          "id": "lc-07",
+          "rank": 2
+        },
+        {
+          "id": "lc-08",
+          "rank": 1
+        },
+        {
+          "id": "lc-09",
+          "rank": 1
+        },
+        {
+          "id": "lc-10",
+          "rank": 1
+        },
+        {
+          "id": "lc-11",
+          "rank": 2
+        },
+        {
+          "id": "br-01",
+          "rank": 1
+        },
+        {
+          "id": "br-02",
+          "rank": 2
+        },
+        {
+          "id": "br-03",
+          "rank": 3
+        },
+        {
+          "id": "br-04",
+          "rank": 2
+        },
+        {
+          "id": "br-05",
+          "rank": 4
+        },
+        {
+          "id": "br-06",
+          "rank": 1
+        },
+        {
+          "id": "br-07",
+          "rank": 1
+        },
+        {
+          "id": "br-08",
+          "rank": 2
+        },
+        {
+          "id": "br-09",
+          "rank": 1
+        },
+        {
+          "id": "br-10",
+          "rank": 3
+        },
+        {
+          "id": "br-11",
+          "rank": 1
+        },
+        {
+          "id": "br-12",
+          "rank": 1
+        },
+        {
+          "id": "br-13",
+          "rank": 1
+        },
+        {
+          "id": "br-14",
+          "rank": 1
+        },
+        {
+          "id": "br-15",
+          "rank": 1
+        }
+      ]
+    },
+    "+ reranker": {
+      "hit@1": 0.66,
+      "hit@3": 0.88,
+      "hit@5": 0.98,
+      "mrr": 0.7901904761904762,
+      "n": 50,
+      "latency_s": 10.631604995727539,
+      "by_type": {
+        "keyword": {
+          "hit@1": 0.7333333333333333,
+          "hit@3": 0.9333333333333333,
+          "hit@5": 1.0,
+          "mrr": 0.8355555555555555,
+          "n": 15
+        },
+        "paraphrase": {
+          "hit@1": 0.5384615384615384,
+          "hit@3": 0.8076923076923077,
+          "hit@5": 0.9615384615384616,
+          "mrr": 0.7106227106227105,
+          "n": 26
+        },
+        "slide": {
+          "hit@1": 0.8888888888888888,
+          "hit@3": 1.0,
+          "hit@5": 1.0,
+          "mrr": 0.9444444444444444,
+          "n": 9
+        }
+      },
+      "per_question": [
+        {
+          "id": "nn-01",
+          "rank": 1
+        },
+        {
+          "id": "nn-02",
+          "rank": 4
+        },
+        {
+          "id": "nn-03",
+          "rank": 2
+        },
+        {
+          "id": "nn-04",
+          "rank": 4
+        },
+        {
+          "id": "nn-06",
+          "rank": 2
+        },
+        {
+          "id": "nn-08",
+          "rank": 4
+        },
+        {
+          "id": "nn-09",
+          "rank": 1
+        },
+        {
+          "id": "nn-10",
+          "rank": 1
+        },
+        {
+          "id": "nn-11",
+          "rank": 7
+        },
+        {
+          "id": "nn-13",
+          "rank": 1
+        },
+        {
+          "id": "nn-14",
+          "rank": 1
+        },
+        {
+          "id": "gd-01",
+          "rank": 3
+        },
+        {
+          "id": "gd-02",
+          "rank": 1
+        },
+        {
+          "id": "gd-04",
+          "rank": 2
+        },
+        {
+          "id": "gd-05",
+          "rank": 1
+        },
+        {
+          "id": "gd-06",
+          "rank": 2
+        },
+        {
+          "id": "gd-08",
+          "rank": 1
+        },
+        {
+          "id": "gd-09",
+          "rank": 1
+        },
+        {
+          "id": "gd-10",
+          "rank": 1
+        },
+        {
+          "id": "gd-11",
+          "rank": 1
+        },
+        {
+          "id": "gd-12",
+          "rank": 1
+        },
+        {
+          "id": "gd-13",
+          "rank": 2
+        },
+        {
+          "id": "gd-14",
+          "rank": 4
+        },
+        {
+          "id": "gd-15",
+          "rank": 2
+        },
+        {
+          "id": "lc-01",
+          "rank": 1
+        },
+        {
+          "id": "lc-02",
+          "rank": 1
+        },
+        {
+          "id": "lc-03",
+          "rank": 1
+        },
+        {
+          "id": "lc-04",
+          "rank": 1
+        },
+        {
+          "id": "lc-05",
+          "rank": 1
+        },
+        {
+          "id": "lc-06",
+          "rank": 1
+        },
+        {
+          "id": "lc-07",
+          "rank": 1
+        },
+        {
+          "id": "lc-08",
+          "rank": 1
+        },
+        {
+          "id": "lc-09",
+          "rank": 1
+        },
+        {
+          "id": "lc-10",
+          "rank": 2
+        },
+        {
+          "id": "lc-11",
+          "rank": 1
+        },
+        {
+          "id": "br-01",
+          "rank": 1
+        },
+        {
+          "id": "br-02",
+          "rank": 5
+        },
+        {
+          "id": "br-03",
+          "rank": 3
+        },
+        {
+          "id": "br-04",
+          "rank": 2
+        },
+        {
+          "id": "br-05",
+          "rank": 1
+        },
+        {
+          "id": "br-06",
+          "rank": 1
+        },
+        {
+          "id": "br-07",
+          "rank": 1
+        },
+        {
+          "id": "br-08",
+          "rank": 1
+        },
+        {
+          "id": "br-09",
+          "rank": 2
+        },
+        {
+          "id": "br-10",
+          "rank": 1
+        },
+        {
+          "id": "br-11",
+          "rank": 1
+        },
+        {
+          "id": "br-12",
+          "rank": 1
+        },
+        {
+          "id": "br-13",
+          "rank": 1
+        },
+        {
+          "id": "br-14",
+          "rank": 1
+        },
+        {
+          "id": "br-15",
+          "rank": 1
+        }
+      ]
+    }
+  },
+  "answers": {
+    "any_citation_within_tol": 0.92,
+    "first_citation_within_tol": 0.9,
+    "answered_not_found": 0.02,
+    "ungrounded_citations": 0,
+    "model": "openai/gpt-oss-120b",
+    "reasoning_effort": "low",
+    "per_question": [
+      {
+        "id": "nn-01",
+        "any_citation_correct": true,
+        "citations": [
+          "00:36"
+        ]
+      },
+      {
+        "id": "nn-02",
+        "any_citation_correct": true,
+        "citations": [
+          "02:54",
+          "02:59"
+        ]
+      },
+      {
+        "id": "nn-03",
+        "any_citation_correct": true,
+        "citations": [
+          "02:54",
+          "03:20",
+          "10:43"
+        ]
+      },
+      {
+        "id": "nn-04",
+        "any_citation_correct": true,
+        "citations": [
+          "04:07",
+          "04:13"
+        ]
+      },
+      {
+        "id": "nn-06",
+        "any_citation_correct": true,
+        "citations": [
+          "05:21",
+          "01:25"
+        ]
+      },
+      {
+        "id": "nn-08",
+        "any_citation_correct": true,
+        "citations": [
+          "07:00",
+          "07:06",
+          "07:12",
+          "07:19",
+          "06:12",
+          "06:18"
+        ]
+      },
+      {
+        "id": "nn-09",
+        "any_citation_correct": true,
+        "citations": [
+          "10:25",
+          "10:31",
+          "10:36"
+        ]
+      },
+      {
+        "id": "nn-10",
+        "any_citation_correct": true,
+        "citations": [
+          "11:17",
+          "11:28",
+          "03:13"
+        ]
+      },
+      {
+        "id": "nn-11",
+        "any_citation_correct": false,
+        "citations": [
+          "01:09",
+          "15:44"
+        ]
+      },
+      {
+        "id": "nn-13",
+        "any_citation_correct": true,
+        "citations": [
+          "17:39",
+          "17:45",
+          "17:52",
+          "17:59"
+        ]
+      },
+      {
+        "id": "nn-14",
+        "any_citation_correct": true,
+        "citations": [
+          "17:28",
+          "17:33"
+        ]
+      },
+      {
+        "id": "gd-01",
+        "any_citation_correct": true,
+        "citations": [
+          "02:27"
+        ]
+      },
+      {
+        "id": "gd-02",
+        "any_citation_correct": true,
+        "citations": [
+          "02:17",
+          "12:58"
+        ]
+      },
+      {
+        "id": "gd-04",
+        "any_citation_correct": true,
+        "citations": [
+          "03:51",
+          "04:01"
+        ]
+      },
+      {
+        "id": "gd-05",
+        "any_citation_correct": true,
+        "citations": [
+          "04:52",
+          "12:33"
+        ]
+      },
+      {
+        "id": "gd-06",
+        "any_citation_correct": true,
+        "citations": [
+          "05:59",
+          "10:20"
+        ]
+      },
+      {
+        "id": "gd-08",
+        "any_citation_correct": true,
+        "citations": [
+          "06:42",
+          "06:47",
+          "06:52"
+        ]
+      },
+      {
+        "id": "gd-09",
+        "any_citation_correct": true,
+        "citations": [
+          "07:26",
+          "07:34"
+        ]
+      },
+      {
+        "id": "gd-10",
+        "any_citation_correct": true,
+        "citations": [
+          "09:24"
+        ]
+      },
+      {
+        "id": "gd-11",
+        "any_citation_correct": true,
+        "citations": [
+          "10:09",
+          "10:31",
+          "10:36"
+        ]
+      },
+      {
+        "id": "gd-12",
+        "any_citation_correct": true,
+        "citations": [
+          "10:48",
+          "10:55",
+          "11:19"
+        ]
+      },
+      {
+        "id": "gd-13",
+        "any_citation_correct": true,
+        "citations": [
+          "13:21",
+          "13:32"
+        ]
+      },
+      {
+        "id": "gd-14",
+        "any_citation_correct": true,
+        "citations": [
+          "14:02",
+          "07:47",
+          "16:01"
+        ]
+      },
+      {
+        "id": "gd-15",
+        "any_citation_correct": true,
+        "citations": [
+          "15:09",
+          "15:23"
+        ]
+      },
+      {
+        "id": "lc-01",
+        "any_citation_correct": true,
+        "citations": [
+          "00:15"
+        ]
+      },
+      {
+        "id": "lc-02",
+        "any_citation_correct": true,
+        "citations": [
+          "00:40",
+          "00:48",
+          "01:03",
+          "02:07",
+          "02:14",
+          "02:18",
+          "02:27",
+          "02:32"
+        ]
+      },
+      {
+        "id": "lc-03",
+        "any_citation_correct": true,
+        "citations": [
+          "00:33"
+        ]
+      },
+      {
+        "id": "lc-04",
+        "any_citation_correct": true,
+        "citations": [
+          "00:40"
+        ]
+      },
+      {
+        "id": "lc-05",
+        "any_citation_correct": false,
+        "citations": []
+      },
+      {
+        "id": "lc-06",
+        "any_citation_correct": true,
+        "citations": [
+          "01:33",
+          "01:37",
+          "01:56",
+          "00:56"
+        ]
+      },
+      {
+        "id": "lc-07",
+        "any_citation_correct": true,
+        "citations": [
+          "01:26",
+          "01:30"
+        ]
+      },
+      {
+        "id": "lc-08",
+        "any_citation_correct": true,
+        "citations": [
+          "02:07",
+          "02:14",
+          "02:27",
+          "02:32"
+        ]
+      },
+      {
+        "id": "lc-09",
+        "any_citation_correct": true,
+        "citations": [
+          "03:20"
+        ]
+      },
+      {
+        "id": "lc-10",
+        "any_citation_correct": true,
+        "citations": [
+          "04:09",
+          "05:27"
+        ]
+      },
+      {
+        "id": "lc-11",
+        "any_citation_correct": true,
+        "citations": [
+          "04:37",
+          "04:31"
+        ]
+      },
+      {
+        "id": "br-01",
+        "any_citation_correct": false,
+        "citations": [
+          "15:50",
+          "15:39"
+        ]
+      },
+      {
+        "id": "br-02",
+        "any_citation_correct": false,
+        "citations": [
+          "05:02",
+          "04:26"
+        ]
+      },
+      {
+        "id": "br-03",
+        "any_citation_correct": true,
+        "citations": [
+          "08:31",
+          "08:33",
+          "08:36",
+          "08:40",
+          "08:48"
+        ]
+      },
+      {
+        "id": "br-04",
+        "any_citation_correct": true,
+        "citations": [
+          "09:24",
+          "08:56",
+          "09:32",
+          "13:14",
+          "13:21"
+        ]
+      },
+      {
+        "id": "br-05",
+        "any_citation_correct": true,
+        "citations": [
+          "11:32",
+          "11:38",
+          "11:04",
+          "11:07",
+          "11:10"
+        ]
+      },
+      {
+        "id": "br-06",
+        "any_citation_correct": true,
+        "citations": [
+          "14:22",
+          "14:34",
+          "14:37"
+        ]
+      },
+      {
+        "id": "br-07",
+        "any_citation_correct": true,
+        "citations": [
+          "15:22",
+          "15:39"
+        ]
+      },
+      {
+        "id": "br-08",
+        "any_citation_correct": true,
+        "citations": [
+          "16:30",
+          "16:51",
+          "17:28",
+          "17:51"
+        ]
+      },
+      {
+        "id": "br-09",
+        "any_citation_correct": true,
+        "citations": [
+          "18:51",
+          "19:13",
+          "18:53",
+          "19:17",
+          "20:04"
+        ]
+      },
+      {
+        "id": "br-10",
+        "any_citation_correct": true,
+        "citations": [
+          "20:18",
+          "20:31",
+          "21:14",
+          "21:31",
+          "21:24"
+        ]
+      },
+      {
+        "id": "br-11",
+        "any_citation_correct": true,
+        "citations": [
+          "22:06",
+          "22:40"
+        ]
+      },
+      {
+        "id": "br-12",
+        "any_citation_correct": true,
+        "citations": [
+          "23:08",
+          "23:49",
+          "23:55"
+        ]
+      },
+      {
+        "id": "br-13",
+        "any_citation_correct": true,
+        "citations": [
+          "24:17",
+          "24:26",
+          "24:46",
+          "24:58"
+        ]
+      },
+      {
+        "id": "br-14",
+        "any_citation_correct": true,
+        "citations": [
+          "26:33",
+          "26:44"
+        ]
+      },
+      {
+        "id": "br-15",
+        "any_citation_correct": true,
+        "citations": [
+          "27:29",
+          "27:03",
+          "27:04"
+        ]
+      }
+    ]
+  }
+}

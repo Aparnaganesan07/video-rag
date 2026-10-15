@@ -53,10 +53,12 @@ CANDIDATES_K = 20        # how many results each retriever returns before fusion
 RRF_K = 60               # Reciprocal Rank Fusion constant (60 is the standard value from the paper)
 RERANKER_MODEL = os.getenv("RERANKER_MODEL", "BAAI/bge-reranker-base")
 # Cross-encoders cost ~1s per (question, chunk) pair on CPU at 512 tokens, so we rerank
-# only the top 10 fused candidates and cut each to 320 tokens (~45s of speech + some slide text).
-# Measured: 20 x 512 = 20s, 10 x 256 = 4.7s, same top-3 on our test questions.
+# only the top 10 fused candidates. Phase 4 eval (50 questions) chose the length:
+#   320 tokens: Hit@1 0.60, ~5s/query  <- slide text (after the speech) got cut off: slide Qs 0.67
+#   512 tokens: Hit@1 0.66, ~8s/query  <- slide Qs back to 0.89
+#   320 tokens with slide text first: Hit@1 0.62 (didn't fix it)
 RERANK_CANDIDATES = 10
-RERANK_MAX_LENGTH = 320
+RERANK_MAX_LENGTH = 512
 
 # --- LLM answers (Groq) ---
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")

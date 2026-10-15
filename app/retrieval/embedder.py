@@ -13,8 +13,8 @@ def _get_model():
         try:
             # Use the copy on disk if we have one: skips slow network checks at startup.
             _model = SentenceTransformer(config.EMBEDDING_MODEL, device="cpu", local_files_only=True)
-        except Exception:
-            _model = SentenceTransformer(config.EMBEDDING_MODEL, device="cpu")  # first run: download
+        except OSError:  # first run: model files not on disk yet -> download
+            _model = SentenceTransformer(config.EMBEDDING_MODEL, device="cpu")
     return _model
 
 

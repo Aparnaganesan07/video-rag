@@ -21,7 +21,7 @@ def _get_model():
         opts = {"max_length": config.RERANK_MAX_LENGTH, "device": "cpu"}
         try:
             _model = CrossEncoder(config.RERANKER_MODEL, local_files_only=True, **opts)
-        except Exception:
+        except OSError:  # model files not on disk yet (other errors, e.g. out of memory, should surface)
             print(f"[rerank] downloading {config.RERANKER_MODEL} (first run only, ~1 GB)")
             _model = CrossEncoder(config.RERANKER_MODEL, **opts)
     return _model

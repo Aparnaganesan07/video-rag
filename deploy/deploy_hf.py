@@ -1,4 +1,4 @@
-"""Upload the app to a Hugging Face Space (Docker SDK).
+r"""Upload the app to a Hugging Face Space (Docker SDK).
 
 One-time setup (you do this, it needs your own token):
     1. Create a free account at https://huggingface.co

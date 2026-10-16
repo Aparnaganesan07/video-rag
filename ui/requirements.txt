@@ -1,0 +1,16 @@
+# Slim dependencies for the HOSTED demo (Streamlit Community Cloud picks up this file because it
+# sits next to the entrypoint, ui/streamlit_app.py). The hosted demo only ANSWERS questions over
+# pre-indexed videos, so Whisper, EasyOCR and PySceneDetect are left out.
+# For local development use the full ../requirements.txt.
+
+# CPU-only PyTorch: avoids ~2.5 GB of CUDA libraries the server can't use.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.14.1+cpu
+
+sentence-transformers>=3.0.0
+chromadb>=1.0.0
+rank_bm25>=0.2.2
+groq>=1.0.0
+streamlit>=1.50.0
+python-dotenv>=1.0.0
+yt-dlp>=2025.11.12

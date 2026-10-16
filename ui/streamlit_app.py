@@ -19,12 +19,19 @@ import streamlit.components.v1 as components
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))  # so `import app` works
 
-from app import config, pipeline  # noqa: E402
+from app import config, pipeline, seed  # noqa: E402
 from app.generation.answer import CITATION_GROUP_RE, TIMESTAMP_RE  # noqa: E402
 from app.retrieval import embedder, reranker, vector_store  # noqa: E402
 from app.utils import format_timestamp  # noqa: E402
 
 st.set_page_config(page_title="Video RAG – Jump to the Moment", page_icon="🎬", layout="wide")
+
+
+@st.cache_resource(show_spinner="Building the search index for the demo videos (first start only)...")
+def ensure_index() -> bool:
+    # Empty index (fresh server or clone)? Rebuild it from the committed demo_data/ in seconds.
+    seed.seed()
+    return True
 
 
 @st.cache_resource(show_spinner="Loading the search models (first run only)...")
@@ -153,23 +160,28 @@ def render_player(video_id: str, start: int, answer_html: str = "", sources_html
 
 # ---------- Sidebar: add videos, choose scope ----------
 
+ensure_index()
 videos = [v for v in vector_store.list_videos() if not v["video_id"].startswith("local_")]
 
 with st.sidebar:
     st.header("🎬 Videos")
     if config.IS_HOSTED:
+        # The hosted demo has no Whisper/OCR installed, and YouTube blocks cloud servers anyway.
         st.info(
-            "Hosted demo: 4 lectures are pre-indexed. Adding new videos may fail here, because "
-            "YouTube blocks downloads from cloud servers. Run it locally to index your own."
+            "Hosted demo: 4 lectures are pre-indexed, ask anything about them. "
+            "To index your own videos, run the app locally "
+            "([GitHub](https://github.com/Aparnaganesan07/video-rag))."
         )
-    with st.form("index_form", clear_on_submit=True):
-        url = st.text_input("Add a YouTube video or playlist", placeholder="https://www.youtube.com/watch?v=...")
-        use_ocr = st.checkbox(
-            "Read on-screen text (slide OCR)",
-            value=config.ENABLE_SLIDES,
-            help="Finds slide changes and reads their text. Slower: roughly 40s per minute of video on CPU.",
-        )
-        submitted = st.form_submit_button("Index")
+        submitted, url = False, ""
+    else:
+        with st.form("index_form", clear_on_submit=True):
+            url = st.text_input("Add a YouTube video or playlist", placeholder="https://www.youtube.com/watch?v=...")
+            use_ocr = st.checkbox(
+                "Read on-screen text (slide OCR)",
+                value=config.ENABLE_SLIDES,
+                help="Finds slide changes and reads their text. Slower: roughly 40s per minute of video on CPU.",
+            )
+            submitted = st.form_submit_button("Index")
     if submitted and url.strip():
         with st.status("Indexing... (see the terminal for progress)", expanded=True) as status:
             st.write("Download → transcribe → " + ("slide OCR → " if use_ocr else "") + "chunk → embed")

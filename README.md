@@ -206,16 +206,24 @@ docker build -t video-rag .
 docker run -p 7860:7860 -e GROQ_API_KEY=your_key video-rag     # open http://localhost:7860
 ```
 
-**Hugging Face Spaces**: YouTube blocks most downloads from cloud servers, so the hosted demo ships
-with the 4 evaluated lectures pre-indexed. `demo_data/` holds their transcripts, chunks and slide text
-(~340 KB of JSON). At startup `python -m app.seed` rebuilds the vector index from it in seconds.
-```powershell
-hf auth login                              # once, with a WRITE token from huggingface.co/settings/tokens
-python -m deploy.deploy_hf YOUR_HF_USERNAME
-```
-Then add `GROQ_API_KEY` under the Space's *Settings → Variables and secrets*.
-Optional environment overrides: `USE_RERANKER=false` (≈8s faster per query), `USE_HYBRID`, `ENABLE_SLIDES`,
-`LLM_MODEL`, `LLM_REASONING_EFFORT`.
+**Hosted demo (Streamlit Community Cloud, free)**: YouTube blocks most downloads from cloud servers, so
+the hosted demo is *question-answering only* over the 4 evaluated lectures. `demo_data/` holds their
+transcripts, chunks and slide text (~340 KB of JSON); on first start the app rebuilds the vector index
+from it in seconds (`app/seed.py`). The host installs the slim `ui/requirements.txt` (CPU torch, no
+Whisper/OCR). Measured memory: ~0.7 GB without the reranker, ~1.9 GB with it (limit 2.7 GB).
+
+1. share.streamlit.io → *Create app* → repo `video-rag`, branch `main`, file `ui/streamlit_app.py`
+2. *Advanced settings*: Python 3.13; Secrets:
+   ```toml
+   GROQ_API_KEY = "your_key"
+   HOSTED_DEMO = "true"
+   ```
+
+Optional environment/secret overrides: `USE_RERANKER=false` (≈8s faster per query, ~1.2 GB less RAM),
+`USE_HYBRID`, `ENABLE_SLIDES`, `LLM_MODEL`, `LLM_REASONING_EFFORT`.
+
+**Hugging Face Spaces (Docker)**: `python -m deploy.deploy_hf YOUR_HF_USERNAME` uploads the Docker app,
+but Docker Spaces now need a PRO subscription, so the free demo uses Streamlit Cloud instead.
 
 To add your own videos to the shipped demo: index them locally, add their ids to `DEMO_VIDEOS` in
 `app/seed.py`, run `python -m app.seed --export`, commit `demo_data/`.

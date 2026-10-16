@@ -14,8 +14,9 @@ def _env_flag(name: str, default: bool) -> bool:
     return default if value is None else value.strip().lower() in ("1", "true", "yes", "on")
 
 
-# Hugging Face Spaces sets SPACE_ID; we use it to show a "hosted demo" notice in the UI.
-IS_HOSTED = bool(os.getenv("SPACE_ID"))
+# Hosted demo mode: questions only, over the pre-indexed demo videos (see app/seed.py).
+# Set HOSTED_DEMO=true in the host's secrets; Hugging Face Spaces is detected via SPACE_ID.
+IS_HOSTED = _env_flag("HOSTED_DEMO", False) or bool(os.getenv("SPACE_ID"))
 os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")  # harmless Windows cache notice
 
 # --- Paths ---

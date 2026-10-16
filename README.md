@@ -3,7 +3,10 @@
 Ask a question about a lecture video, get an answer where every claim cites a timestamp
 like **[17:33]**, and click it to play the video from that exact second.
 
-**Live demo:** _coming soon (Hugging Face Spaces)_ · Stack: faster-whisper · PySceneDetect + EasyOCR ·
+**▶ Live demo: [video-rag-bafscbnqdebyz2i9avv4u7.streamlit.app](https://video-rag-bafscbnqdebyz2i9avv4u7.streamlit.app/)**
+(4 lectures pre-indexed; first answer after a cold start takes ~30-60s while models load)
+
+Stack: faster-whisper · PySceneDetect + EasyOCR ·
 bge-small + BM25 + RRF · bge-reranker · ChromaDB · Groq · Streamlit · FastAPI · Docker
 
 <!-- Demo GIF: record the app, save as docs/demo.gif, then uncomment the next line -->

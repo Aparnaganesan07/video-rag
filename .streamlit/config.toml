@@ -1,2 +1,8 @@
 [browser]
 gatherUsageStats = false
+
+[server]
+# Don't watch source files for changes. The watcher walks every imported library and trips over
+# optional parts of `transformers` (e.g. torchvision), spamming errors on the hosted demo.
+# Side effect: after editing code locally, restart `streamlit run` to see changes.
+fileWatcherType = "none"

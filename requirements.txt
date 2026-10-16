@@ -12,7 +12,7 @@ chromadb>=1.0.0
 
 # --- Phase 2: answers + UI + API ---
 groq>=1.0.0
-streamlit>=1.50.0
+streamlit>=1.65.0  # st.iframe (replaces components.v1.html)
 fastapi>=0.115.0
 uvicorn[standard]>=0.30.0
 

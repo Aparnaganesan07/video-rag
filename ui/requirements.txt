@@ -11,6 +11,6 @@ sentence-transformers>=3.0.0
 chromadb>=1.0.0
 rank_bm25>=0.2.2
 groq>=1.0.0
-streamlit>=1.50.0
+streamlit>=1.65.0,<2  # st.iframe (replaces components.v1.html)
 python-dotenv>=1.0.0
 yt-dlp>=2025.11.12

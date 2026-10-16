@@ -15,7 +15,6 @@ import sys
 from pathlib import Path
 
 import streamlit as st
-import streamlit.components.v1 as components
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))  # so `import app` works
 
@@ -155,7 +154,9 @@ def render_player(video_id: str, start: int, answer_html: str = "", sources_html
   }});
 </script>
 """
-    components.html(page, height=640, scrolling=True)
+    # st.iframe runs this HTML (and its JavaScript) in a sandboxed frame. Safe here because every
+    # piece of text inside it (answer, transcript, titles) went through html.escape above.
+    st.iframe(page, height=640)
 
 
 # ---------- Sidebar: add videos, choose scope ----------
